@@ -1,0 +1,18 @@
+{{ 'about_content.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+  <div class="about_content__in">
+    <div class="about_content__text">{{ page.content }}</div>
+    <div class="about_content__side">
+      <img src="{{ page.metafields.custom.sidebar_image | img_url: 'master' }}" alt="content image" class="about_content__side_img">
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "About content section",
+"tag": "section",
+"class": "section about_content"
+}
+{% endschema %}

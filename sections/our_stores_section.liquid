@@ -1,0 +1,76 @@
+{{ 'stores_section.css' | asset_url | stylesheet_tag }}
+
+<div class="container" id="stores">
+  {% if section.settings.section_title != blank or section.settings.btn_title != blank%}
+  <div class="stores_section__head">
+    {% if section.settings.section_title != blank %}
+    <h2 class="stores_section__head_title">{{ section.settings.section_title }}</h2>
+    {% endif %}
+    {% if section.settings.btn_title != blank %}
+    <div class="stores_section__head_btn">
+      <a href="{{ section.settings.btn_url }}" class="stores_section__btn">
+        {% if section.settings.btn_icon != blank %}
+        <span class="stores_section__head_btn__icon">
+          <i class="{{ section.settings.btn_icon }}"></i>
+        </span>
+        {% endif %}
+        {{ section.settings.btn_title }}
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="stores_section__block_stores" data-stores="{{section.settings.stores_api}}"></div>
+</div>
+
+<script src="{{ 'storesAPI.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+"name": "Our stores section",
+"tag": "section",
+"class": "section stores_section",
+"settings": [
+{
+  "type": "header",
+  "content": "Section title"
+},
+{
+  "type": "text",
+  "id": "section_title",
+  "label": "Add title",
+  "default": "Our Stores"
+},
+{
+  "type": "header",
+  "content": "Section button"
+  },
+  {
+  "type": "url",
+  "id": "btn_url",
+  "label": "Add url"
+  },
+  {
+  "type": "text",
+  "id": "btn_title",
+  "label": "Add title"
+  },
+  {
+    "type": "text",
+    "id": "btn_icon",
+    "label": "Add icon class",
+    "default": "fa-solid fa-location-dot",
+    "info": "You can get the icons class here: fontawesome.com/icons. Example: 'fa-solid fa-location-dot'"
+    },
+  {
+    "type": "header",
+    "content": "Stores API url"
+  },
+  {
+    "type": "text",
+    "id": "stores_api",
+    "label": "Add link for stores API"
+  }
+]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+<section class="section article_content_section" data-section-id="{{ section.id }}" data-section-type="article-content-section">
+  <div class="container">
+    <article class="article_content">
+      <div class="article_content__in">
+        {% if article.excerptHtml != blank %}
+          <div class="article_content__head">
+            {{ article.excerptHtml }}
+          </div>
+        {% endif %}
+        {% if article.excerpt != blank %}
+          <div class="article_content__head">
+            {{ article.excerpt }}
+          </div>
+        {% endif %}
+        {% if article.content != blank %}
+        <div class="article_content__text article__content rte">
+          {{ article.content }}
+        </div>
+        {% endif %}
+        {% if blog.metafields.custom.disclaimer != blank %}
+        <div class="article_content__bottom">
+          {{ blog.metafields.custom.disclaimer }}
+        </div>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+</section>

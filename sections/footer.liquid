@@ -1,0 +1,387 @@
+<footer class="footer" data-section-id="{{ section.id }}" data-section-type="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__wrapper">
+      {%- if section.blocks.size > 0 -%}
+        <div class="footer__block-list">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'text' -%}
+                <div class="footer__block-item footer__block-item--text" {{ block.shopify_attributes }}>
+                  <button class="footer__title heading h6" disabled aria-expanded="false" aria-controls="block-{{ block.id }}" data-action="toggle-collapsible">
+                    <span>{{ block.settings.title | escape }}</span>
+                    <span class="plus-button"></span>
+                  </button>
+
+                  <div id="block-{{ block.id }}" class="footer__collapsible">
+                    <div class="footer__collapsible-content">
+                      <div class="rte">
+                        {{ block.settings.content }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              {%- when 'links' -%}
+                {%- assign menu = linklists[block.settings.menu] -%}
+
+                {%- unless menu.empty? -%}
+                  <div class="footer__block-item footer__block-item--links" {{ block.shopify_attributes }}>
+                    <button class="footer__title heading h6" disabled aria-expanded="false" aria-controls="block-{{ block.id }}" data-action="toggle-collapsible">
+                      <span>{{ menu.title }}</span>
+                      <span class="plus-button"></span>
+                    </button>
+
+                    <div id="block-{{ block.id }}" class="footer__collapsible">
+                      <div class="footer__collapsible-content">
+                        <ul class="footer__linklist list--unstyled" role="list">
+                          {%- for link in menu.links -%}
+                            <li>
+                              <a href="{{ link.url }}" class="footer__link-item link">{{ link.title }}</a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                {%- endunless -%}
+
+              {%- when 'newsletter' -%}
+                <div class="footer__block-item footer__block-item--newsletter" {{ block.shopify_attributes }}>
+                  <p class="footer__title heading h6">{{ block.settings.title | escape }}</p>
+
+                  <div class="footer__newsletter-wrapper">
+                    {%- if block.settings.subheading != blank -%}
+                      <div class="footer__newsletter-text rte">{{ block.settings.subheading }}</div>
+                    {%- endif -%}
+
+                    {%- form 'customer', id: 'footer-newsletter', class: 'footer__newsletter-form' -%}
+                      {%- if form.posted_successfully? -%}
+                        <p class="alert alert--success alert--center">{{ 'footer.newsletter.success' | t }}</p>
+                      {%- else -%}
+                        {%- if form.errors -%}
+                          <p class="alert alert--error alert--center">{{ form.errors.messages['email'] }}</p>
+                        {%- endif -%}
+
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+
+                        <div class="form__input-wrapper form__input-wrapper--labelled">
+                          <input type="email" id="footer[{{ section.id }}][contact][email]" name="contact[email]" class="form__field form__field--text" required="">
+                          <label for="footer[{{ section.id }}][contact][email]" class="form__floating-label">{{ 'footer.newsletter.input' | t }}</label>
+                        </div>
+
+                        <button type="submit" class="form__submit form__submit--tight button button--primary">{{ 'footer.newsletter.submit' | t }}</button>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <aside class="footer__aside">
+        {%- assign currency_selector = false -%}
+        {%- assign locale_selector = false -%}
+
+        {%- if section.settings.show_currency_selector and shop.enabled_currencies.size > 1 -%}
+          {%- assign currency_selector = true -%}
+        {%- endif -%}
+
+        {%- if section.settings.show_locale_selector and shop.published_locales.size > 1 -%}
+          {%- assign locale_selector = true -%}
+        {%- endif -%}
+
+        <div class="footer__aside-item footer__aside-item--localization {% if currency_selector == false and locale_selector == false %}hidden-pocket{% endif %}">
+          {%- if locale_selector or currency_selector -%}
+            {%- form 'localization', id: 'localization_form_footer', class: 'footer__localization-form' -%}
+              {%- if locale_selector -%}
+                <div class="footer__localization-form-item">
+                  <input type="hidden" name="locale_code" value="{{ form.current_locale.iso_code }}">
+                  <span class="visually-hidden">{{ 'footer.general.language' | t }}</span>
+
+                  <div class="value-picker-wrapper">
+                    <button type="button" class="select-button select-button--mini" aria-haspopup="true" aria-expanded="false" aria-controls="footer-locale-picker" data-action="open-value-picker">
+                      {{- form.current_locale.endonym_name | capitalize -}}
+                      {%- render 'icon', icon: 'arrow-bottom' -%}
+                    </button>
+
+                    <div id="footer-locale-picker" class="value-picker value-picker--small" data-picker-position="top" aria-hidden="true">
+                      {% render 'icon', icon: 'nav-triangle-borderless' %}
+
+                      <div class="value-picker__inner">
+                        <header class="value-picker__header">
+                          <span class="value-picker__title text--strong">{{ 'footer.general.language' | t }}</span>
+                          <button type="button" class="value-picker__close" data-action="close-value-picker" aria-controls="footer-locale-picker" aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+                        </header>
+
+                        <ul class="value-picker__choice-list" role="list">
+                          {%- for locale in form.available_locales -%}
+                            <li class="value-picker__choice-list-item">
+                              <button type="submit" name="locale_code" class="value-picker__choice-item" value="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %}>
+                                {{- locale.endonym_name | capitalize -}}
+                              </button>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if currency_selector -%}
+                <div class="footer__localization-form-item">
+                  <input type="hidden" name="currency_code" value="{{ form.current_currency.iso_code }}">
+                  <span class="visually-hidden">{{ 'footer.general.currency' | t }}</span>
+
+                  <div class="value-picker-wrapper">
+                    <button type="button" class="select-button select-button--mini" aria-haspopup="true" aria-expanded="false" aria-controls="footer-currency-picker" data-action="open-value-picker">
+                      {{ form.current_currency.iso_code }} {% if form.current_currency.symbol %}{{ form.current_currency.symbol }}{% endif %}
+                      {%- render 'icon', icon: 'arrow-bottom' -%}
+                    </button>
+
+                    <div id="footer-currency-picker" class="value-picker value-picker--auto value-picker--small" data-picker-position="top" aria-hidden="true">
+                      {% render 'icon', icon: 'nav-triangle-borderless' %}
+
+                      <div class="value-picker__inner">
+                        <header class="value-picker__header">
+                          <span class="value-picker__title text--strong">{{ 'footer.general.currency' | t }}</span>
+                          <button type="button" class="value-picker__close" data-action="close-value-picker" aria-controls="footer-currency-picker" aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+                        </header>
+
+                        <ul class="value-picker__choice-list" role="list">
+                          {%- for currency in form.available_currencies -%}
+                            <li class="value-picker__choice-list-item">
+                              <button type="submit" name="currency_code" class="value-picker__choice-item" value="{{ currency.iso_code }}" {% if currency.iso_code == form.current_currency.iso_code %}aria-current="true"{% endif %}>
+                                {{ currency.iso_code }} {% if currency.symbol %}{{ currency.symbol }}{% endif %}
+                              </button>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          {%- endif -%}
+
+          {%- capture copyright_info -%}© {{ 'now' | date: '%Y' }} {{ shop.name }}{%- endcapture -%}
+          <p class="hidden-pocket">{{ copyright_info }}</p>
+        </div>
+
+        {%- if section.settings.show_social_media -%}
+          {%- capture social_media -%}{% render 'social-media', show_social_media_name: false %}{%- endcapture -%}
+
+          {%- if social_media != blank -%}
+            <div class="footer__aside-item footer__aside-item--social">
+              <p class="footer__aside-title">{{ 'footer.general.follow_us' | t }}</p>
+
+              {{ social_media }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+          <div class="footer__aside-item footer__aside-item--payment">
+            <p class="footer__aside-title">{{ 'footer.general.we_accept' | t }}</p>
+
+            <div class="payment-list">
+              {% for type in shop.enabled_payment_types %}
+                {{ type | payment_type_svg_tag: class: 'payment-list__item' }}
+              {% endfor %}
+              {% comment %} GEM {% endcomment %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="38" height="24" class="payment-list__item"><path d="M35,0H3A3,3,0,0,0,0,3V21a3,3,0,0,0,3,3H35a3,3,0,0,0,3-3V3A3,3,0,0,0,35,0Z" transform="translate(0 0)" opacity="0.07" style="isolation:isolate"/><path d="M35,1a2,2,0,0,1,2,2V21a2,2,0,0,1-2,2H3a2,2,0,0,1-2-2V3A2,2,0,0,1,3,1H35" transform="translate(0 0)" fill="#fff"/><path d="M12.6,8.46a4,4,0,0,0-2.65-1,3.94,3.94,0,0,0-3.95,4A4,4,0,0,0,10,15.37a3.81,3.81,0,0,0,2.48-.87,3,3,0,0,1-.63.91,2.7,2.7,0,0,1-3.82,0L7.65,15l-1.22.43a9.79,9.79,0,0,0,.66.84,3.87,3.87,0,0,0,2.8,1.15,3.82,3.82,0,0,0,2.79-1.15,4.13,4.13,0,0,0,1.14-2.89V8.05H12.6ZM10,14.13a2.71,2.71,0,1,1,2.71-2.71h0A2.71,2.71,0,0,1,10,14.13Zm20.54-5a.92.92,0,0,1,.29.66v5.34H32V9.92a2.16,2.16,0,0,0-.62-1.57,2.46,2.46,0,0,0-1.74-.69,2.74,2.74,0,0,0-1.84.66l-.05,0-.05,0A2.43,2.43,0,0,0,26,7.66a3,3,0,0,0-1.71.53,1,1,0,0,0-.86-.42,1.16,1.16,0,0,0-.82.31,3.93,3.93,0,0,0-1.18,2.47v0a5.91,5.91,0,0,1-1.28,2.75,2.69,2.69,0,0,1-1.91.79,2.45,2.45,0,0,1-1.55-.48L21.35,9,21,8.61a4,4,0,0,0-5.59,0,3.95,3.95,0,0,0,0,5.59,3.81,3.81,0,0,0,2.79,1.16A3.67,3.67,0,0,0,21,14.2a7.4,7.4,0,0,0,1.59-3.55h0c.11-.59.4-1.41.67-1.41.05,0,.21,0,.19.44v5.51H24.7V9.94A1,1,0,0,1,25,9.18a1.68,1.68,0,0,1,1-.3,1.27,1.27,0,0,1,.85.3.85.85,0,0,1,.29.63v5.37h1.22V9.9a1,1,0,0,1,.3-.72,1.71,1.71,0,0,1,1-.3,1.28,1.28,0,0,1,.85.3ZM15.54,11.41a2.68,2.68,0,0,1,2.69-2.69A2.45,2.45,0,0,1,19.56,9l-3.7,3.7A2.47,2.47,0,0,1,15.54,11.41Zm2.19,6.86,0,.05a.54.54,0,0,1-.1.16.32.32,0,0,1-.18.06.37.37,0,0,1-.21-.06l.06-.15a.2.2,0,0,0,.14.06l.09,0a.24.24,0,0,0,.06-.09v0l-.35-.82h.16l.28.63.27-.63h.16Zm-1.23-.61a.29.29,0,0,0,0-.42.26.26,0,0,0-.19-.07h-.56v1h.62a.31.31,0,0,0,.3-.3.3.3,0,0,0-.14-.26Zm-.63-.34h.41a.15.15,0,0,1,.14.15.17.17,0,0,1-.14.15h-.41Zm.47.75h-.47v-.3h.47a.14.14,0,0,1,.14.15A.15.15,0,0,1,16.34,18.07ZM19.62,17h-.17v1.23h.89V18h-.71ZM32,17.16V17h-.89v1.23H32V18h-.72v-.35h.62v-.18h-.62v-.35Zm-7.45,1.06h.17V17h-.17Zm1-1.06h.42v1.06h.18V17.16h.42V17h-1Zm-2.77,0h.42v1.06h.18V17.16h.42V17h-1Zm-1-.17.56,1.23h-.19l-.15-.35H21.3l-.15.35H21L21.52,17Zm.14.7-.23-.53-.23.53Zm8.5-.09a.6.6,0,0,1-.65.62h-.5V17h.51a.6.6,0,0,1,.64.61Zm-.18,0a.44.44,0,0,0-.48-.44h-.32V18h.32a.44.44,0,0,0,.48-.44Zm-2,.06c0,.22-.08.4-.34.4s-.34-.18-.34-.4V17h-.18v.7a.52.52,0,1,0,1,0V17h-.18Z" transform="translate(0 0)" fill="#0046aa"/></svg>
+              {% comment %} GENOPAY 1-3 {% endcomment %}
+              {% comment %} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="38" height="24" class="payment-list__item"><path d="M35,0H3A3,3,0,0,0,0,3V21a3,3,0,0,0,3,3H35a3,3,0,0,0,3-3V3A3,3,0,0,0,35,0Z" transform="translate(0 0)" opacity="0.07" style="isolation:isolate"/><path d="M35,1a2,2,0,0,1,2,2V21a2,2,0,0,1-2,2H3a2,2,0,0,1-2-2V3A2,2,0,0,1,3,1H35" transform="translate(0 0)" fill="#fff"/><path d="M9.89,13.64l.23-.4a1.34,1.34,0,0,0,1.58.14,1,1,0,0,0,.34-1,1.19,1.19,0,0,1-1.21.43,1.67,1.67,0,0,1-.78-.43,1.59,1.59,0,0,1,.12-2.06,1.34,1.34,0,0,1,1.86.13l0-.43h.51v.44c0,.68,0,1.36,0,2a1.46,1.46,0,0,1-2.07,1.48A4.5,4.5,0,0,1,9.89,13.64Zm2.17-2.26a.91.91,0,0,0-.9-1,.93.93,0,0,0-.93,1,1,1,0,0,0,.92,1A.94.94,0,0,0,12.06,11.38Z" transform="translate(0 0)" fill="#0bae93"/><path d="M15.45,12.19l.29.35a1.72,1.72,0,0,1-2.12.24,1.6,1.6,0,0,1-.51-2,1.47,1.47,0,0,1,1.75-.8,1.44,1.44,0,0,1,1.05,1.65H13.57a.74.74,0,0,0,.44.72A1.19,1.19,0,0,0,15.45,12.19Zm-.07-.93a.93.93,0,0,0-1-.81.81.81,0,0,0-.77.81Z" transform="translate(0 0)" fill="#0bae93"/><path d="M24.94,11.23a.54.54,0,0,0-.27-.64,1.37,1.37,0,0,0-1.42.18L23,10.39A1.92,1.92,0,0,1,25,10.11a.94.94,0,0,1,.56.83c0,.67,0,1.35,0,2H25L25,12.73a.39.39,0,0,0-.11.06,1.43,1.43,0,0,1-1.37.15.82.82,0,0,1-.57-.83.77.77,0,0,1,.68-.77C24,11.27,24.47,11.27,24.94,11.23Zm0,.43a7.82,7.82,0,0,0-1.1.07.51.51,0,0,0-.34.36.59.59,0,0,0,.29.43C24.35,12.79,25.16,12.36,25,11.66Z" transform="translate(0 0)" fill="#0bae93"/><path d="M22.64,11.51A1.55,1.55,0,1,1,21.11,10,1.49,1.49,0,0,1,22.64,11.51Zm-1.56,1a.94.94,0,0,0,1-1,1,1,0,1,0-2,0A1,1,0,0,0,21.08,12.53Z" transform="translate(0 0)" fill="#0bae93"/><path d="M19.15,13h-.56c0-.53,0-1.06,0-1.59s-.23-.87-.69-.9a.84.84,0,0,0-1,.79c0,.55,0,1.11,0,1.69h-.57V10h.51l0,.24a5.47,5.47,0,0,1,1-.28,1.12,1.12,0,0,1,1.28,1.14C19.17,11.73,19.15,12.34,19.15,13Z" transform="translate(0 0)" fill="#0bae93"/><path d="M26.45,12.43v1.65h-.29v-4c.25,0,.25,0,.3.53a1.34,1.34,0,0,1,1.39-.57,1.85,1.85,0,0,1,.88.5,1.56,1.56,0,0,1-.15,2.13A1.5,1.5,0,0,1,26.45,12.43Zm2.33-.88a1.18,1.18,0,0,0-1.15-1.25,1.19,1.19,0,0,0-1.18,1.23,1.17,1.17,0,1,0,2.33,0Z" transform="translate(0 0)" fill="#0bae93"/><path d="M31.85,13h-.27l0-.39a1.43,1.43,0,0,1-1.35.41.82.82,0,0,1-.74-.86.81.81,0,0,1,.81-.78c.21,0,.41,0,.62,0h.63a.77.77,0,0,0-.3-.9,1.35,1.35,0,0,0-1.5.18c-.2-.18-.2-.18,0-.31a1.81,1.81,0,0,1,1.38-.25.92.92,0,0,1,.74.92C31.86,11.63,31.85,12.29,31.85,13Zm-.31-1.38c-.42,0-.83,0-1.23,0a.52.52,0,0,0-.54.51.57.57,0,0,0,.44.61A1,1,0,0,0,31.54,11.6Z" transform="translate(0 0)" fill="#0bae93"/><path d="M33.56,12.63c.36-.82.7-1.58,1-2.35.08-.18.17-.3.41-.2l-1.15,2.58c-.14.31-.27.64-.44.95a.94.94,0,0,1-1.32.39c-.17-.11-.21-.21,0-.35.65.36,1.1.17,1.27-.57a.51.51,0,0,0-.06-.34l-1.05-2.36-.12-.3c.22-.09.32,0,.39.18l.87,2C33.41,12.35,33.47,12.46,33.56,12.63Z" transform="translate(0 0)" fill="#0bae93"/><path d="M7.6,10.78a1.08,1.08,0,0,1-2.15,0A1.07,1.07,0,0,1,6.52,9.71,1.05,1.05,0,0,1,7.6,10.78Zm-.31,0a.77.77,0,1,0-.78.76A.78.78,0,0,0,7.29,10.79Z" transform="translate(0 0)" fill="#0bae93"/><path d="M7.6,13.2a1.08,1.08,0,0,1-1.07,1.09,1.11,1.11,0,0,1-1.1-1.07,1.09,1.09,0,0,1,2.17,0Zm-.32,0a.77.77,0,1,0-1.54,0,.78.78,0,0,0,.78.76A.76.76,0,0,0,7.28,13.2Z" transform="translate(0 0)" fill="#0bae93"/><path d="M5.17,13.22a1.08,1.08,0,0,1-1.09,1.07,1.08,1.08,0,1,1,0-2.16A1.08,1.08,0,0,1,5.17,13.22ZM4.08,14a.77.77,0,1,0-.77-.77A.77.77,0,0,0,4.08,14Z" transform="translate(0 0)" fill="#0bae93"/></svg> {% endcomment %}
+              {% comment %}Genoapay disabled 8/3/23<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="38" height="24" class="payment-list__item"><path d="M35.89,0A2.15,2.15,0,0,1,38,2.21V21.82A2.15,2.15,0,0,1,35.89,24H2.11A2.15,2.15,0,0,1,0,21.82V2.21A2.15,2.15,0,0,1,2.11,0H35.89" transform="translate(0 -0.04)" fill="#0bae93"/><path d="M9.38,13.38,9.63,13a1.45,1.45,0,0,0,1.67.15A1,1,0,0,0,11.65,12a1.27,1.27,0,0,1-1.28.45A1.85,1.85,0,0,1,9.56,12a1.67,1.67,0,0,1,.12-2.18,1.4,1.4,0,0,1,2,.14l0-.45h.54V10c0,.72,0,1.43,0,2.14A1.55,1.55,0,0,1,10,13.69,6.39,6.39,0,0,1,9.38,13.38ZM11.67,11a1,1,0,0,0-.95-1,1,1,0,0,0-1,1,1,1,0,0,0,1,1.05A1,1,0,0,0,11.67,11Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M15.25,11.85l.31.37a1.81,1.81,0,0,1-2.24.25,1.66,1.66,0,0,1-.53-2.06,1.54,1.54,0,0,1,1.84-.85,1.52,1.52,0,0,1,1.11,1.74H13.26a.8.8,0,0,0,.47.76A1.28,1.28,0,0,0,15.25,11.85Zm-.07-1A1,1,0,0,0,14.11,10a.85.85,0,0,0-.82.86Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M25.27,10.84a.6.6,0,0,0-.28-.69,1.45,1.45,0,0,0-1.5.2l-.22-.4a2,2,0,0,1,2-.3,1,1,0,0,1,.59.88c0,.71,0,1.42,0,2.15h-.53l0-.26a.34.34,0,0,0-.12.06,1.5,1.5,0,0,1-1.45.16.87.87,0,0,1-.6-.88.81.81,0,0,1,.71-.81A12.59,12.59,0,0,1,25.27,10.84Zm0,.45a8.71,8.71,0,0,0-1.16.07.55.55,0,0,0-.36.38.64.64,0,0,0,.31.46C24.64,12.48,25.5,12,25.29,11.29Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M22.84,11.13A1.63,1.63,0,1,1,21.23,9.5,1.57,1.57,0,0,1,22.84,11.13ZM21.2,12.21a1,1,0,0,0,1-1.08,1,1,0,0,0-1-1.1,1,1,0,0,0-1,1.08A1,1,0,0,0,21.2,12.21Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M19.16,12.68h-.59c0-.56,0-1.12,0-1.68s-.24-.92-.72-.95a.89.89,0,0,0-1.06.83c0,.59,0,1.18,0,1.79h-.59V9.56h.53l.05.25a6.78,6.78,0,0,1,1-.3,1.18,1.18,0,0,1,1.35,1.2C19.18,11.36,19.16,12,19.16,12.68Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M26.87,12.09v1.75h-.31V9.62c.26,0,.26,0,.32.57a1.38,1.38,0,0,1,1.46-.6,1.91,1.91,0,0,1,.93.52,1.66,1.66,0,0,1-.15,2.25A1.58,1.58,0,0,1,26.87,12.09Zm2.45-.92a1.24,1.24,0,0,0-1.21-1.32,1.26,1.26,0,0,0-1.25,1.3,1.24,1.24,0,0,0,1.21,1.29A1.22,1.22,0,0,0,29.32,11.17Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M32.56,12.68h-.28l0-.42a1.49,1.49,0,0,1-1.43.44.87.87,0,0,1-.78-.9.86.86,0,0,1,.86-.83c.21,0,.43,0,.65,0h.67a.82.82,0,0,0-.32-.95,1.43,1.43,0,0,0-1.59.19c-.2-.19-.21-.19,0-.32a1.89,1.89,0,0,1,1.46-.27,1,1,0,0,1,.79,1C32.57,11.26,32.56,12,32.56,12.68Zm-.32-1.45c-.45,0-.88,0-1.3,0a.56.56,0,0,0-.57.54.59.59,0,0,0,.47.64A1,1,0,0,0,32.24,11.23Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M34.37,12.31c.38-.87.74-1.67,1.09-2.48.08-.19.17-.32.43-.21l-1.21,2.72c-.15.33-.29.68-.47,1a1,1,0,0,1-1.39.41c-.19-.11-.22-.22,0-.36.69.38,1.16.17,1.35-.61a.54.54,0,0,0-.07-.35c-.36-.84-.73-1.67-1.1-2.5a2.88,2.88,0,0,1-.13-.31c.23-.1.33,0,.41.19.3.7.61,1.39.92,2.08C34.21,12,34.28,12.13,34.37,12.31Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M7,10.36A1.14,1.14,0,1,1,5.83,9.23,1.12,1.12,0,0,1,7,10.36Zm-.33,0a.81.81,0,0,0-.8-.82.82.82,0,0,0-.83.8.83.83,0,0,0,.81.82A.81.81,0,0,0,6.64,10.37Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M7,12.92a1.14,1.14,0,0,1-1.13,1.15,1.15,1.15,0,1,1,0-2.29A1.14,1.14,0,0,1,7,12.92Zm-.33,0a.83.83,0,0,0-.82-.81.82.82,0,1,0,.82.81Z" transform="translate(0 -0.04)" fill="#fff"/><path d="M4.4,12.94a1.15,1.15,0,0,1-1.15,1.13,1.15,1.15,0,1,1,0-2.29A1.15,1.15,0,0,1,4.4,12.94Zm-1.15.79a.83.83,0,0,0,.82-.81.82.82,0,0,0-.81-.81.81.81,0,0,0-.82.8A.82.82,0,0,0,3.25,13.73Z" transform="translate(0 -0.04)" fill="#fff"/></svg>{% endcomment %}
+              {% comment %} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24" width="38" height="24" class="payment-list__item"><path d="M35.89,0A2.15,2.15,0,0,1,38,2.15V21.78A2.15,2.15,0,0,1,35.89,24H2.11A2.15,2.15,0,0,1,0,21.78V2.17A2.15,2.15,0,0,1,2.09,0h33.8" transform="translate(0 0.04)" fill="#0bae93"/><circle cx="22.02" cy="8.87" r="2.35" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.6"/><circle cx="22.13" cy="15.17" r="2.35" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.6"/><circle cx="15.87" cy="15.17" r="2.35" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.6"/></svg> {% endcomment %}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="footer__aside-item footer__aside-item--copyright hidden-lap-and-up">
+          <p>{{ copyright_info }}</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  {%- comment -%}
+    In order to reduce the number of static sections, we were asked by Shopify team to move the cookie bar to the footer instead of its own
+    section. This feels a bit hacky but it works :).
+  {%- endcomment -%}
+
+  {%- if section.settings.show_cookie_bar -%}
+    <aside class="cookie-bar" aria-hidden="true">
+      <div class="container">
+        <div class="cookie-bar__inner">
+          <div class="cookie-bar__text rte">
+            {{- section.settings.text -}}
+          </div>
+
+          {%- if section.settings.accept_button != blank -%}
+            <button type="button" class="cookie-bar__button button button--secondary" data-action="accept-terms">{{ section.settings.accept_button | escape }}</button>
+          {%- endif -%}
+        </div>
+      </div>
+    </aside>
+  {%- endif -%}
+</footer>
+<div class="modal" id="general-availability-modal" aria-hidden="true">
+  <div class="modal__dialog" role="dialog">
+    <header class="modal__header">
+      <h3 class="modal__title heading h2">QWERTY</h3>
+      <button class="modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+        {%- render 'icon', icon: 'close' -%}
+      </button>
+    </header>
+    <div class="store-availabilities-list modal__content">
+      <div class="rte">
+        QWERTY
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if customer -%}
+  <script src="{{ 'my-account.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_social_media",
+      "label": "Show social media",
+      "info": "Make sure to have properly configured your social media in the theme settings.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Language selector",
+      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "Show language selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Currency selector",
+      "info": "To add a currency, go to your [payment settings.](/admin/settings/payments)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "Show currency selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Cookie bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cookie_bar",
+      "label": "Show cookie bar",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Use this bar to show information about your cookie policy.</p>"
+    },
+    {
+      "type": "text",
+      "id": "accept_button",
+      "label": "Accept button",
+      "default": "Accept"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "About our store"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.</p>"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "name": "Links",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "This menu won't show dropdown items."
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Newsletter"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text",
+        "settings": {}
+      },
+      {
+        "type": "links",
+        "settings": {
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "newsletter",
+        "settings": {}
+      }
+    ]
+  }
+}
+{% endschema %}

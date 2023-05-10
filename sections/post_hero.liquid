@@ -1,0 +1,67 @@
+{{ 'post_hero.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+  <div class="post_hero_breadcrumbs">
+    {% include 'breadcrumbs_nav' %}
+  </div>
+  <div class="post_hero">
+    <div class="post_hero__in">
+      <div class="post_hero__img">
+        <img src="{{ article.image | img_url: 'master' }}" alt="{{ article.title }}" class="post_hero__img_in">
+      </div>
+      <div class="post_hero__bottom">
+        <h1 class="post_hero__title">{{ article.title }}</h1>
+        {% comment %}<div class="post_hero__share">
+          <ul class="share_list">
+            {% for link in section.blocks %}
+              <li class="share_list__item">
+                <a href="#" class="share_link">
+                <span class="share_link__icon">
+                  {% if link.settings.icon_class != blank %}
+                    {{ link.settings.icon_class }}
+                  {% else %}
+                    <img src="{{ link.settings.icon_img | img_url: 'master' }}" alt="" class="share_link__icon_img">
+                  {% endif %}
+                </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>{% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Post hero",
+"tag": "section",
+"class": "section post_hero_section",
+"blocks": [
+  {
+    "type": "share",
+    "name": "Button",
+    "settings": [
+      {
+        "type": "url",
+        "id": "url",
+        "label": "Add url for button"
+      },
+      {
+        "type": "image_picker",
+        "id": "icon_img",
+        "label": "Add image",
+        "info": "You can add an image or 'FontAwesome' icon in the box below."
+      },
+      {
+        "type": "text",
+        "id": "icon_class",
+        "label": "Add icon tag",
+        "info": "You can get the icons class here: fontawesome.com/icons. Example: <i class='fa-regular fa-star'></i>"
+      }
+    ]
+  }
+]
+}
+{% endschema %}

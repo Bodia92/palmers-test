@@ -1,0 +1,65 @@
+{{ 'article_list.css' | asset_url | stylesheet_tag }}
+
+{%- assign atricle_count = section.settings.blog_posts_count -%}
+
+{%- paginate blog.articles by atricle_count -%}
+<section class="section blog_section" data-section-id="{{ section.id }}" data-section-type="blog-articles-list">
+  <div class="container">
+    <div class="blog_section__in">
+      <div class="blog_section__sedebar blogSidebar">
+        <ul class="blog_section__tags">
+          <li class="blog_section__tags_item">
+            <a href="{{ blog.url }}" class="blog_tag_link">
+              {% if blog.metafields.custom.title_for_reset_tag_link != blank %}
+                {{ blog.metafields.custom.title_for_reset_tag_link }}
+              {% else %}
+                All articles
+              {% endif %}
+            </a>
+          </li>
+          {% for tag in blog.all_tags %}
+          <li class="blog_section__tags_item">
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="blog_tag_link">{{ tag }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="blog_section__content">
+        {% if blog.metafields.custom.blog_description != blank %}
+        <div class="blog_section__content_line">
+          <div class="blog_section__description">{{ blog.metafields.custom.blog_description }}</div>
+        </div>
+        {% endif %}
+        <div class="blog_section__content_line">
+          {% include 'blog_filter' %}
+        </div>
+        <div class="blog_section__content_line blog_section__content_line__list_mod two_col">
+          {% include 'articles_list' %}
+        </div>
+        <div class="blog_section__content_line">
+          {% include 'pagination' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+<script src="{{ 'blogSidebar.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Blog articles list",
+  "settings": [
+    {
+      "type": "range",
+      "id": "blog_posts_count",
+      "label": "Blog posts to show",
+      "min": 3,
+      "max": 54,
+      "step": 3,
+      "default": 18
+	  }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,128 @@
+{{ 'login_popup.css' | asset_url | stylesheet_tag }}
+
+<div class="login_popup__in">
+  <div class="login_popup__close loginPopupTrigger">
+    {% render 'icon', icon: 'close-3' %}
+  </div>
+  {% if section.settings.image_top != blank or section.settigs.popup_title != blank or section.settings.btn_1_title != blank %}
+  <div class="login_popup__top">
+    {% if section.settings.image_top != blank %}
+    <div class="login_popup__img">
+      <img src="{{ section.settings.image_top | img_url: 'master' }}" alt="{{ section.settings.image_top.alt | escape }}" class="login_popup__img_in">
+    </div>
+    {% endif %}
+    {% if section.settings.popup_title != blank %}
+    <h2 class="login_popup__title">{{ section.settings.popup_title }}</h2>
+    {% endif %}
+    {% if section.settings.btn_1_title != blank %}
+    <div class="login_popup__btn_w">
+      <a href="{{ section.settings.btn_1_url }}" class="login_popup__btn login_popup__btn--accent_mod">{{ section.settings.btn_1_title }}</a>
+    </div>
+    {% endif %}
+    {% if section.settings.popup_descr != blank %}
+    <div class="login_popup__descr">{{ section.settings.popup_descr }}</div>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="login_popup__bottom">
+    {% if section.settings.popup_subtitle != blank %}
+    <h2 class="login_popup__subtitle">{{ section.settings.popup_subtitle }}</h2>
+    {% endif %}
+    {% if section.settings.btn_2_title != blank %}
+    <div class="login_popup__btn_w login_popup__btn_w--offset_mod">
+      <a href="{{ section.settings.btn_2_url }}" class="login_popup__btn">{{ section.settings.btn_2_title }}</a>
+    </div>
+    {% endif %}
+    {% if section.settings.image_bottom != blank %}
+    <div class="login_popup__img login_popup__img--size_mod">
+      <img src="{{ section.settings.image_bottom | img_url: 'master' }}" alt="{{ section.settings.image_bottom.alt | escape }}" class="login_popup__img_in">
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="{{ 'loginPopup.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+"name": "Login popup",
+"class": "login_popup loginPopup popup_hidden",
+"tag": "div",
+"settings": [
+{
+"type": "header",
+"content": "Top image"
+},
+{
+"type": "image_picker",
+"id": "image_top",
+"label": "Add image"
+},
+{
+"type": "header",
+"content": "Main title"
+},
+{
+"type": "text",
+"id": "popup_title",
+"label": "Add main title for popup"
+},
+{
+"type": "header",
+"content": "Button 1"
+},
+{
+"type": "text",
+"id": "btn_1_title",
+"label": "Add title for button 1"
+},
+{
+"type": "url",
+"id": "btn_1_url",
+"label": "Add url for button 1"
+},
+{
+"type": "header",
+"content": "Popup description"
+},
+{
+"type": "richtext",
+"id": "popup_descr",
+"label": "Add description for popup"
+},
+{
+"type": "header",
+"content": "Subtitle"
+},
+{
+"type": "text",
+"id": "popup_subtitle",
+"label": "Add subtitle for popup"
+},
+{
+"type": "header",
+"content": "Button 2"
+},
+{
+"type": "text",
+"id": "btn_2_title",
+"label": "Add title for button 2"
+},
+{
+"type": "url",
+"id": "btn_2_url",
+"label": "Add url for button 2"
+},
+{
+"type": "header",
+"content": "Bottom image"
+},
+{
+"type": "image_picker",
+"id": "image_bottom",
+"label": "Add image"
+}
+]
+}
+
+{% endschema %}

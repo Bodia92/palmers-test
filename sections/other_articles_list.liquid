@@ -1,0 +1,65 @@
+{% if section.settings.shown_related_posts == 'show' %}
+
+{% endif %}
+
+{{ 'article_list.css' | asset_url | stylesheet_tag }}
+
+{% if article.metafields.custom.featured_blog_posts_settings != blank %}
+{%- assign current_blog_name = article.metafields.custom.featured_blog_posts_settings | handle -%}
+{% else %}
+{%- assign current_blog_name = blog.title | handle -%}
+{% endif %}
+{%- assign article_check = article.id -%}
+{%- assign article_limit = section.settings.blog_posts_count -%}
+{%- assign current_blog = blogs[current_blog_name] -%}
+
+<section class="section featured_articles" data-section-id="{{ section.id }}" data-section-type="featured-articles">
+  <div class="container">
+    {% if blog.metafields.custom.title_related_post_section != blank %}
+    <h2 class="featured_articles__title">
+      {{ blog.metafields.custom.title_related_post_section }}
+    </h2>
+    {% endif %}
+    <ul class="articles__list">
+      {% for article in current_blog.articles limit: article_limit %}
+        {% if article.id != article_check %}
+          {% include 'article_item' %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+"name": "Related posts section",
+"settings": [
+{
+"type": "radio",
+"id": "shown_related_posts",
+"label": "Related posts",
+"options": [
+{
+"value": "show",
+"label": "Show"
+},
+{
+"value": "hide",
+"label": "Hide"
+}
+],
+"default": "show"
+},
+{
+  "type": "range",
+  "id": "blog_posts_count",
+  "label": "Related post to show",
+  "min": 4,
+  "max": 16,
+  "step": 4,
+  "default": 4
+}
+]
+}
+
+{% endschema %}

@@ -1,0 +1,59 @@
+{{ 'about_history.css' | asset_url | stylesheet_tag }}
+
+<div class="container" id="history">
+  <div class="about_history__list">
+    {% for block in section.blocks %}
+    <div class="about_history__list_item">
+      <div class="about_history__item">
+        {% if block.settings.item_img != lank %}
+        <div class="about_history__img">
+          <img src="{{ block.settings.item_img | img_url: 'master' }}" alt="{{ section.block.settings.item_img.alt | escape }}" class="about_history__img_in">
+        </div>
+        {% endif %}
+        {% if block.settings.item_title != blank or block.settings.item_descr != blank %}
+        <div class="about_history__text">
+          {% if block.settings.item_title != blank %}
+            <h3 class="about_history__title">{{ block.settings.item_title }}</h3>
+          {% endif %}
+          {% if block.settings.item_descr != blank %}
+            <div class="about_history__descr">{{ block.settings.item_descr }}</div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "About history section",
+"tag": "section",
+"class": "section about_history",
+"blocks": [
+{
+"type": "text",
+"name": "History item",
+"settings": [
+{
+"type": "image_picker",
+"id": "item_img",
+"label": "Add image for item"
+},
+{
+  "type": "text",
+  "id": "item_title",
+  "label": "Add title for item"
+},
+{
+  "type": "richtext",
+  "id": "item_descr",
+  "label": "Add description for item"
+}
+]
+}
+]
+}
+
+{% endschema %}

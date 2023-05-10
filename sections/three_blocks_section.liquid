@@ -1,0 +1,293 @@
+{% if section.blocks.size > 0 %}
+{{ 'three_blocks_section.css' | asset_url | stylesheet_tag }}
+
+<section class="section three_blocks" data-section-id="{{ section.id }}" data-section-type="three-blocks-section">
+  <div class="container">
+    <ul class="three_blocks__list">
+      {% for block in section.blocks %}
+      <li class="three_blocks__list_item">
+        {% include 'three_blocks_item' %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+"name": "Three blocks section",
+"blocks": [
+{
+"type": "rewards",
+"name": "Rewards item",
+"settings": [
+{
+"type": "header",
+"content": "Item type"
+},
+{
+"type": "radio",
+"id": "item_type",
+"label": "Form section",
+"options": [
+{
+"value": "rewards",
+"label": "rewards type"
+},
+{
+"value": "social",
+"label": "social type"
+},
+{
+"value": "sign_up",
+"label": "sign up type"
+}
+],
+"default": "rewards"
+},
+{
+"type": "header",
+"content": "Content for item rewards"
+},
+{
+"type": "header",
+"content": "Item image 1"
+},
+{
+"type": "image_picker",
+"id": "item_image_1",
+"label": "Add image 1"
+},
+{
+"type": "header",
+"content": "Item image 2"
+},
+{
+"type": "image_picker",
+"id": "item_image_2",
+"label": "Add image 2"
+},
+{
+"type": "header",
+"content": "Item description"
+},
+{
+"type": "richtext",
+"id": "item_rewards_description",
+"label": "Add description"
+},
+{
+"type": "header",
+"content": "Item btn 1"
+},
+{
+"type": "url",
+"id": "btn_1_url",
+"label": "Add url for item btn 1"
+},
+{
+"type": "text",
+"id": "btn_1_title",
+"label": "Add title for item btn 1"
+},
+{
+"type": "header",
+"content": "Item btn 2"
+},
+{
+"type": "url",
+"id": "btn_2_url",
+"label": "Add url for item btn 2"
+},
+{
+"type": "text",
+"id": "btn_2_title",
+"label": "Add title for item btn 2"
+}
+]
+},
+{
+"type": "social",
+"name": "Social item",
+"settings": [
+{
+"type": "header",
+"content": "Item type"
+},
+{
+"type": "radio",
+"id": "item_type",
+"label": "Form section",
+"options": [
+{
+"value": "rewards",
+"label": "rewards type"
+},
+{
+"value": "social",
+"label": "social type"
+},
+{
+"value": "sign_up",
+"label": "sign up type"
+}
+],
+"default": "social"
+},
+{
+"type": "header",
+"content": "Content for item socials"
+},
+{
+"type": "header",
+"content": "Item title"
+},
+{
+"type": "richtext",
+"id": "social_item_title",
+"label": "Add title"
+},
+{
+"type": "header",
+"content": "Social link 1"
+},
+{
+"type": "url",
+"id": "social_link_1_url",
+"label": "Add url for link 1"
+},
+{
+"type": "text",
+"id": "social_link_1_title",
+"label": "Add title for link 1"
+},
+{
+"type": "image_picker",
+"id": "social_link_1_icon",
+"label": "Add icon for link 1"
+},
+{
+"type": "header",
+"content": "Social link 2"
+},
+{
+"type": "url",
+"id": "social_link_2_url",
+"label": "Add url for link 2"
+},
+{
+"type": "text",
+"id": "social_link_2_title",
+"label": "Add title for link 2"
+},
+{
+"type": "image_picker",
+"id": "social_link_2_icon",
+"label": "Add icon for link 2"
+},
+{
+"type": "header",
+"content": "Item description"
+},
+{
+"type": "richtext",
+"id": "social_item_descr",
+"label": "Add description"
+}
+]
+},
+{
+"type": "sign_up",
+"name": "SignUP item",
+"settings": [
+{
+"type": "header",
+"content": "Item type"
+},
+{
+"type": "radio",
+"id": "item_type",
+"label": "Form section",
+"options": [
+{
+"value": "rewards",
+"label": "rewards type"
+},
+{
+"value": "social",
+"label": "social type"
+},
+{
+"value": "sign_up",
+"label": "sign up type"
+}
+],
+"default": "sign_up"
+},
+{
+"type": "header",
+"content": "Content for item sign up"
+},
+{
+"type": "header",
+"content": "Item title"
+},
+{
+"type": "text",
+"id": "item_title",
+"label": "Add title"
+},
+{
+"type": "header",
+"content": "Item subtitle"
+},
+{
+"type": "text",
+"id": "item_subtitle",
+"label": "Add subtitle"
+},
+{
+"type": "header",
+"content": "Button 1"
+},
+{
+"type": "url",
+"id": "sign_btn_1_url",
+"label": "Add url for button 1"
+},
+{
+"type": "text",
+"id": "sign_btn_1_title",
+"label": "Add title for button 1"
+},
+{
+"type": "image_picker",
+"id": "sign_btn_1_icon",
+"label": "Add icon for button 1"
+},
+{
+"type": "header",
+"content": "Button 2"
+},
+{
+"type": "url",
+"id": "sign_btn_2_url",
+"label": "Add url for button 2"
+},
+{
+"type": "text",
+"id": "sign_btn_2_title",
+"label": "Add title for button 2"
+},
+{
+"type": "image_picker",
+"id": "sign_btn_2_icon",
+"label": "Add icon for button 2"
+}
+]
+}
+]
+}
+
+{% endschema %}

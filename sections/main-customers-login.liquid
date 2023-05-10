@@ -1,0 +1,103 @@
+<section data-section-id="{{ section.id }}" data-section-type="login">
+  {%- assign is_recover_active = false -%}
+
+  {%- form 'recover_customer_password' -%}
+    {%- if form.errors or form.posted_successfully? -%}
+      {%- assign is_recover_active = true -%}
+    {%- endif -%}
+  {%- endform -%}
+
+  <div class="container">
+    {%- comment -%}
+      --------------------------------------------------------------------------------------------------------------------
+      CUSTOMER LOGIN FORM
+      --------------------------------------------------------------------------------------------------------------------
+    {%- endcomment -%}
+
+    {%- if is_recover_active -%}
+      {%- assign login_default_visibility = 'display: none' -%}
+    {%- else -%}
+      {%- assign login_default_visibility = 'display: block' -%}
+    {%- endif -%}
+
+    <form id="customer_api_login" class="form form--main ca_recaptcha_form" style="{{login_default_visibility}}" method="post" action="">
+      <input type="hidden" id="customer_api_login_return" name="returnUrl" value="{{ shop.url }}/account/">
+      <input type="hidden" name="respond200" value="true">
+      <input type="hidden" id="customer_api_login_redirect" name="redirect" value="">
+      <header class="form__header">
+        <h1 class="form__title heading h1">{{ 'customer.login.login' | t }}</h1>
+        <p class="form__legend">{{ 'customer.login.description' | t }}</p>
+      </header>
+
+      <p class="alert alert--error" id="login-form-error" hidden="true">{{ form.errors.messages['form'] }}</p>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="email" id="customer_api_login_email" class="form__field form__field--text" name="email" required="required" {% if form.errors %}aria-invalid="true"aria-describedby="login-form-error"{% endif %}>
+        <label for="customer[email]" class="form__floating-label">{{ 'customer.login.email' | t }}</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="password" id="customer_api_login_password" class="form__field form__field--text" name="password" required="required" autocomplete="current-password" {% if form.errors %}aria-invalid="true"aria-describedby="login-form-error"{% endif %}>
+        <label for="customer[password]" class="form__floating-label">{{ 'customer.login.password' | t }}</label>
+      </div>
+
+      <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.login.submit' | t }}</button>
+
+      {% comment %}<small class="form__spam-disclaimer">{{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}</small>{% endcomment %}
+
+      <div class="form__secondary-action">
+        <p>{{ 'customer.login.new_customer' | t }}
+          <a href="{{ routes.account_register_url }}" class="link link--accented">{{ 'customer.login.create_your_account' | t }}</a>
+        </p>
+        <p>{{ 'customer.login.lost_password' | t }}
+          <button type="button" data-action="toggle-login-form" class="link link--accented">{{ 'customer.login.recover_password' | t }}</button>
+        </p>
+      </div>
+    </form>
+
+    {%- comment -%}
+      --------------------------------------------------------------------------------------------------------------------
+      CUSTOMER RECOVERY FORM
+      --------------------------------------------------------------------------------------------------------------------
+    {%- endcomment -%}
+
+    <form action="" id="recover_customer_password" class="for form--main" hidden="true">
+      <header class="form__header">
+        <h1 class="form__title heading h1">{{ 'customer.recover_password.recover_password' | t }}</h1>
+        <p class="form__legend">{{ 'customer.recover_password.description' | t }}</p>
+      </header>
+
+      <p class="alert alert--error" id="recovery-form-error" hidden="true"></p>
+      <p class="alert alert--success" id="recovery-form-success" hidden="true">We have sent the recovery link to the email provided! If it exists in our system, you will see it in your inbox in a few minutes!</p>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="email" id="customer_recover__value--email" class="form__field form__field--text" name="email" required="required" {% if form.errors %}aria-invalid="true"aria-describedby="recovery-form-error"{% endif %}>
+        <label for="customer[recover_email]" class="form__floating-label">{{ 'customer.recover_password.email' | t }}</label>
+      </div>
+
+      <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.recover_password.submit' | t }}</button>
+
+      <div class="form__secondary-action">
+        <p>{{ 'customer.recover_password.remembered_your_password' | t }}
+          <button type="button" data-action="toggle-login-form" class="link link--accented">{{ 'customer.recover_password.back_to_login' | t }}</button>
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    if (window.location.hash === '#recover-password' || window.location.hash === '#recover') {
+      document.getElementById('customer_api_login').setAttribute('hidden', true);
+      document.getElementById('recover_customer_password').removeAttribute('hidden');
+    }
+  </script>
+
+  {% include 'customers-reset-password' %}
+
+
+</section>
+{% schema %}
+  {
+    "name": "Login"
+  }
+{% endschema %}

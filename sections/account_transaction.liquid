@@ -1,0 +1,126 @@
+<!-- Loyalty points & Transactions-->
+<div id="tokens--api_filters" hidden="true">12</div>
+<section data-section-id="{{ section.id }}" data-section-type="account">
+	<div class="container container--flush">
+		<div class="page__sub-header">
+			<nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
+				<ol class="breadcrumb__list" role="list">
+					<li class="breadcrumb__item">
+						<a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+					</li>
+
+					<li class="breadcrumb__item">
+						<a class="breadcrumb__link link" href="{{ routes.account_url }}">{{ 'general.breadcrumb.account' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+					</li>
+
+					<li class="breadcrumb__item">
+						<a class="breadcrumb__link link" href="/account?view=history">In-Store Orders</a> {%- render 'icon', icon: 'arrow-right' -%}
+					</li>
+
+					<li class="breadcrumb__item">
+						<span class="breadcrumb__link" aria-current="page">Order <span id="account_information__value--breadcrumb_order_id">undefined</span></span>
+					</li>
+				</ol>
+			</nav>
+		</div>
+
+		<div class="layout">
+			<div class="layout__section layout__section--secondary">
+				<div class="card card--sticky hidden-pocket">
+					<div class="card__section card__section--tight">
+						<div class="card__linklist">
+							<a href="{{ routes.account_url }}" class="card__linklist-item link">Dashboard</a>
+							<a href="/account?view=rewards" class="card__linklist-item link">Rewards</a>
+							<a href="/account?view=orders" class="card__linklist-item link">Online Orders</a>
+                            <a href="/account?view=history" class="card__linklist-item link text--strong active_page_mod">In-Store Orders</a>
+							<a href="{{ routes.account_addresses_url }}" class="card__linklist-item link">Account Details</a>
+							<a href="{{ routes.account_logout_url }}" class="card__linklist-item link" data-no-instant>{{ 'customer.general.logout' | t }}</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="value-picker-wrapper hidden-tablet-and-up">
+					<button class="value-picker-button value-picker-button--pill" aria-haspopup="true" aria-expanded="false" aria-controls="account-selector" data-action="open-value-picker">
+						In-Store Orders {%- render 'icon', icon: 'arrow-bottom' -%}
+					</button>
+
+					<div id="account-selector" class="value-picker" aria-hidden="true">
+						<div class="value-picker__inner">
+							<header class="value-picker__header">
+								<span class="value-picker__title text--strong">{{ 'customer.general.my_account' | t }}</span>
+								<button class="value-picker__close" data-action="close-value-picker" aria-controls="account-selector" aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+							</header>
+
+							<div class="value-picker__choice-list">
+								<a href="{{ routes.account_url }}" class="value-picker__choice-item">Dashboard</a>
+								<a href="/account?view=rewards" class="value-picker__choice-item">Rewards</a>
+								<a href="/account?view=orders" class="value-picker__choice-item">Online Orders</a>
+								<a href="/account?view=history" class="value-picker__choice-item is-selected">In-Store Orders</a>
+								<a href="{{ routes.account_addresses_url }}" class="value-picker__choice-item">Account Details</a>
+								<a href="{{ routes.account_logout_url }}" class="value-picker__choice-item" data-no-instant>{{ 'customer.general.logout' | t }}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layout__section">
+				<div class="order-summary card" id="dashboard_block__in--tohide">
+					<div class="card__header card__header--tight">
+						<h2 class="card__title heading h1">Loading...</h2><br>
+					</div>
+				</div>
+				<div class="order-summary card" id="dashboard_block__in--toshow" hidden="true">
+					<div class="card__header card__header--tight">
+						<div class="card__navigation">
+							<a href="/account?view=history" class="card__navigation-breadcrumb link">{% render 'icon', icon: 'arrow-left' %} Back to In-Store Orders</a>
+							<p class="hidden-phone">Created at: <span id="account_information__value--order_date">---</span></p>
+						</div>
+
+						<h1 class="card__title heading h1">Order <span id="account_information__value--order_id">undefined</span></h1>
+
+						<p class="hidden-tablet-and-up">{{ order.created_at | date: format: 'month_day_year_time' }}</p>
+
+					</div>
+
+					<div class="table-wrapper">
+						<table class="table table--loose" id="account_information__value--order_table">
+							<thead>
+							<tr>
+								<th>Product</th>
+								<th class="table__cell--center">Quantity</th>
+								<th class="table__cell--right">Total</th>
+							</tr>
+							</thead>
+
+							<tbody>
+								<tr class="line-item">
+									<td class="line-item__product-info">
+										<div class="line-item__product-info-wrapper">
+											<div class="line-item__meta">
+												<p class="line-item__title text--strong">---</p>
+											</div>
+										</div>
+									</td>
+									<td class="line-item__quantity table__cell--center">---</td>
+									<td class="line-item__line-price table__cell--right">---</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="order-foot">
+						<div class="order-foot__inner">
+
+							<div class="order-foot__item order-foot__item--strong">
+								<span class="order-foot__item-category">{{ 'customer.order.total' | t }}</span>
+								<span class="order-foot__item-value" id="account_information__value--order_total">---</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>

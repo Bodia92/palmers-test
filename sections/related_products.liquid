@@ -1,0 +1,56 @@
+{% assign related_products = article.metafields.calibrate.related_products.value %}
+
+{%- capture section_settings -%}
+{
+  "stackable": false,
+  "layout": "vertical",
+  "productId": "",
+  "useRecommendations": false,
+  "recommendationsCount": 10
+}
+{%- endcapture -%}
+
+{% if related_products == nil %}
+  {% assign related_products = article.metafields.calibrate.featured_collection.value.products %}
+{% endif %}
+
+{% if related_products %}
+<section class="section" data-section-id="{{ section.id }}" data-section-type="product-recommendations" data-section-settings='{{ section_settings }}'>
+  <div class="container">
+    {% if section.settings.section_tile != blank %}
+    <div class="section__header">
+      <h2 class="featured_articles__title">
+        {{ section.settings.section_tile }}
+      </h2>
+    </div>
+  {% endif %}
+  <div class="product-recommendations">
+    <div class="scroller">
+      <div class="scroller__inner">
+        <div class="product-list product-list--vertical product-list--scrollable">
+          {%- for product in related_products limit:40 -%}
+          {%- render 'product-item', product: product, grid_classes: '1/4--lap 1/5--desk 1/6--wide', show_add_to_cart: false -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+"name": "Related products",
+"tag": "section",
+"class": "section featured_articles",
+"settings": [
+{
+  "type": "text",
+  "id": "section_tile",
+  "label": "Add title for section",
+  "default": "Related products"
+}
+]
+}
+{% endschema %}

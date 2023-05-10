@@ -1,0 +1,41 @@
+{{ 'post_content.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+  <article class="post_content">
+    <div class="post_content__in">
+      {% if article.excerptHtml != blank %}
+        <div class="post_content__head">
+          {{ article.excerptHtml }}
+        </div>
+      {% endif %}
+      {% if article.excerpt != blank %}
+        <div class="post_content__head">
+          {{ article.excerpt }}
+        </div>
+      {% endif %}
+      {% if article.content != blank %}
+      <div class="post_content__text article__content rte">
+        {% if article.metafields.custom.recipes_image != blank %}
+        <div class="post_content__recipes_img">
+          <img src="{{ article.metafields.custom.recipes_image | img_url: 'master' }}" alt="recipes img" class="post_content__recipes_img__in">
+        </div>
+        {% endif %}
+        {{ article.content }}
+      </div>
+      {% endif %}
+      {% if article.metafields.custom.bottom_text != blank %}
+      <div class="post_content__bottom">
+        {{ article.metafields.custom.bottom_text }}
+      </div>
+      {% endif %}
+    </div>
+  </article>
+</div>
+
+{% schema %}
+{
+"name": "Post content",
+"tag": "section",
+"class": "section post_content_section"
+}
+{% endschema %}

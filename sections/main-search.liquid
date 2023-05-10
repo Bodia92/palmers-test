@@ -1,0 +1,137 @@
+{%- comment -%}We start by creating a lot of useful variables !{%- endcomment -%}
+
+{%- assign view_mode = cart.attributes.collection_layout | default: section.settings.default_view_layout -%}
+{%- assign filtered_terms = search.terms -%}
+
+{%- assign items_per_page = cart.attributes.collection_products_per_page | default: 24 -%}
+
+{%- if filtered_terms contains ' AND ' -%}
+  {%- assign filtered_terms = filtered_terms | split: ' AND ' | last -%}
+{%- else -%}
+  {%- assign filtered_terms = filtered_terms | split: 'product_type:' | last -%}
+{%- endif -%}
+
+{%- assign quick_links_menu = linklists[section.settings.quick_links] -%}
+
+{%- if quick_links_menu.links.size > 0 -%}
+  {%- assign has_filters = true -%}
+  {%- capture grid_classes -%}1/3--tablet-and-up 1/{{ section.settings.products_per_row }}--desk{%- endcapture -%}
+{%- else -%}
+  {%- assign has_filters = false -%}
+  {%- capture grid_classes -%}1/3--tablet 1/{{ section.settings.products_per_row }}--lap-and-up{%- endcapture -%}
+{%- endif -%}
+
+{%- capture section_settings -%}
+{
+  "currentSortBy": "",
+  "currentTags": [],
+  "filterMode": "",
+  "defaultLayout": {{ section.settings.default_view_layout | json }},
+  "defaultProductsPerPage": 24,
+  "isAutomatic": true,
+  "gridClasses": {{ grid_classes | json }}
+}
+{%- endcapture -%}
+
+{% if canonical_url contains 'type=article' %}
+  {% include 'blog_search_result' %}
+{% else %}
+  {% include 'products_search_result' %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    {
+      "type": "select",
+      "id": "products_per_row",
+      "label": "Products per row (desktop)",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "default_view_layout",
+      "label": "Default view layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "list",
+          "label": "List"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "select",
+      "id": "show_quick_view",
+      "label": "Show quick view on...",
+      "options": [
+        {
+          "value": "list",
+          "label": "List view"
+        },
+        {
+          "value": "list_grid",
+          "label": "List and grid views"
+        }
+      ],
+      "default": "list"
+    },
+    {
+      "type": "select",
+      "id": "show_quick_buy",
+      "label": "Show quick buy on...",
+      "info": "If product has variants, quick view and quick buy do the same thing.",
+      "options": [
+        {
+          "value": "list",
+          "label": "List view"
+        },
+        {
+          "value": "list_grid",
+          "label": "List and grid views"
+        }
+      ],
+      "default": "list"
+    },
+    {
+      "type": "link_list",
+      "id": "quick_links",
+      "label": "Quick links",
+      "info": "This menu has limited support for dropdown items."
+    },
+    {
+      "type": "header",
+      "content": "Search articles"
+    },
+    {
+      "type": "image_picker",
+      "id": "search_hero_background",
+      "label": "Add background image for Hero"
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_count",
+      "label": "Results to show",
+      "min": 3,
+      "max": 54,
+      "step": 3,
+      "default": 18
+    }
+  ]
+}
+{% endschema %}

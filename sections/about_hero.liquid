@@ -1,0 +1,23 @@
+{{ 'blog_page.css' | asset_url | stylesheet_tag }}
+
+<div class="section_bg">
+  <img src="{{ page.metafields.custom.background_image | img_url: 'master' }}" alt="{{ page.title}}" class="section_bg__img">
+</div>
+<div class="container">
+  <div class="blog_hero_section__in">
+    <div class="hero_blog_section__breadcrumbs">
+      {% include 'breadcrumbs_nav' %}
+    </div>
+    <div class="hero_blog_section__text">
+      <h1 class="hero_blog_section__title">{{ page.title}}</h1>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "About hero section",
+"tag": "section",
+"class": "section hero_blog_section"
+}
+{% endschema %}

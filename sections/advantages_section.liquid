@@ -1,0 +1,79 @@
+{% if section.blocks.size > 0 %}
+{{ 'advantages_section.css' | asset_url | stylesheet_tag }}
+
+<section class="section advantages_section" data-section-id="{{ section.id }}" data-section-type="advantages-section">
+  <div class="container">
+    <ul class="advantages_section__list">
+      {% for block in section.blocks %}
+      <li class="advantages_section__list_item">
+        <div class="advantages_section_item">
+          {% if block.settings.item_icon != blank %}
+          <div class="advantages_section_item__icon">
+            <img src="{{ block.settings.item_icon | img_url: 'master' }}" alt="{{ block.settings.item_icon.alt | escape }}" class="advantages_section_item__icon_img">
+          </div>
+          {% endif %}
+          {% if block.settings.item_title != blank or block.settings.item_link_title != blank %}
+          <div class="advantages_section_item__text">
+            {% if block.settings.item_title != blank %}
+            <h3 class="advantages_section_item__text_title">{{ block.settings.item_title }}</h3>
+            {% endif %}
+            {% if block.settings.item_link_title != blank %}
+            <a href="{{ block.settings.item_link_url }}" class="advantages_section_item__text_link">{{ block.settings.item_link_title }}</a>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+"name": "Advantages",
+"max_blocks": 8,
+"blocks": [
+{
+"type": "advantages_list",
+"name": "Advantages list",
+"settings": [
+{
+"type": "header",
+"content": "Item icon"
+},
+{
+"type": "image_picker",
+"id": "item_icon",
+"label": "Add icon for item"
+},
+{
+"type": "header",
+"content": "Item title"
+},
+{
+"type": "text",
+"id": "item_title",
+"label": "Add title for item"
+},
+{
+"type": "header",
+"content": "Item link"
+},
+{
+"type": "url",
+"id": "item_link_url",
+"label": "Add url for item link"
+},
+{
+"type": "text",
+"id": "item_link_title",
+"label": "Add title for item link"
+}
+]
+}
+]
+}
+
+{% endschema %}

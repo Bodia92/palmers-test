@@ -1,0 +1,31 @@
+{{ 'new_article_page.css' | asset_url | stylesheet_tag }}
+
+<section class="section article_hero" data-section-id="{{ section.id }}" data-section-type="article-hero-section">
+  <div class="container">
+    <div class="article_hero__breadcrumbs">
+      {% include 'breadcrumbs_nav' %}
+    </div>
+    <div class="article_hero__head">
+      <div class="article_hero__img">
+        <img src="{{ article.image | img_url: 'master' }}" alt="{{ article.title }}" class="article_hero__img_in">
+      </div>
+      <div class="article_hero__head_in">
+        <h1 class="article_hero__title">{{ article.title }}</h1>
+        {% if article.metafields.custom.download_pdf != blank %}
+        <div class="article_hero__head_side">
+          <a href="{{ article.metafields.custom.download_pdf | file_url  }}" class="article_hero__head_link" target="_blank">
+            <span class="article_hero__head_link_icon">
+              {% render 'icon', icon: 'file_icon' %}
+            </span>
+            {% if article.metafields.custom.title_for_resource_button != blank %}
+              {{ article.metafields.custom.title_for_resource_button }}
+            {% else %}
+            Download PDF
+            {% endif %}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

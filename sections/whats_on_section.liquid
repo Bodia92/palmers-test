@@ -1,0 +1,47 @@
+{{ 'article_list.css' | asset_url | stylesheet_tag }}
+
+{%- assign current_blog_name = page.metafields.custom.featured_articles | handle -%}
+{%- assign article_limit = section.settings.blog_posts_count -%}
+{%- assign current_blog = blogs[current_blog_name] -%}
+
+<div class="container">
+  {% if section.settings.section_tile != blank %}
+    <h2 class="featured_articles__title">
+      {{ section.settings.section_tile }}
+    </h2>
+  {% else %}
+  <h2 class="featured_articles__title">
+    {{ page.metafields.custom.featured_articles }}
+  </h2>
+  {% endif %}
+  <ul class="articles__list">
+    {% for article in current_blog.articles limit: article_limit %}
+    {% include 'article_item_v2' %}
+    {% endfor %}
+  </ul>
+</div>
+
+{% schema %}
+{
+"name": "What’s On section",
+"tag": "section",
+"class": "section featured_articles",
+"settings": [
+{
+  "type": "text",
+  "id": "section_tile",
+  "label": "Add title for section",
+  "default": "What’s On"
+},
+{
+  "type": "range",
+  "id": "blog_posts_count",
+  "label": "Related post to show",
+  "min": 4,
+  "max": 16,
+  "step": 4,
+  "default": 4
+}
+]
+}
+{% endschema %}

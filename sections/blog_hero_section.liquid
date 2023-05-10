@@ -1,0 +1,17 @@
+{{ 'blog_page.css' | asset_url | stylesheet_tag }}
+
+<section class="section hero_blog_section" data-section-id="{{ section.id }}" data-section-type="hero-blog-section">
+  <div class="section_bg">
+    <img src="{{ blog.metafields.custom.background_hero | img_url: 'master' }}" alt="{{ blog.title}}" class="section_bg__img">
+  </div>
+  <div class="container">
+    <div class="blog_hero_section__in">
+      <div class="hero_blog_section__breadcrumbs">
+        {% include 'breadcrumbs_nav' %}
+      </div>
+      <div class="hero_blog_section__text">
+        <h1 class="hero_blog_section__title">{{ blog.title}}</h1>
+      </div>
+    </div>
+  </div>
+</section>

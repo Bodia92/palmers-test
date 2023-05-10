@@ -1,0 +1,196 @@
+{{ 'account_page.css' | asset_url | stylesheet_tag }}
+<!-- Bio & Loyalty points -->
+<div id="tokens--api_filters" hidden="true">5</div>
+<section data-section-id="{{ section.id }}" data-section-type="account">
+  <div class="container container--flush">
+    <div class="page__sub-header">
+      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
+        <ol class="breadcrumb__list" role="list">
+          <li class="breadcrumb__item">
+            <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+          </li>
+
+          <li class="breadcrumb__item">
+            <span class="breadcrumb__link" aria-current="page">{{ 'general.breadcrumb.account' | t }}</span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="layout">
+      <div class="layout__section layout__section--secondary">
+        <div class="card card--sticky hidden-pocket">
+          <div class="card__section card__section--tight">
+            <div class="card__linklist">
+              <a href="{{ routes.account_url }}" class="card__linklist-item link text--strong active_page_mod">Dashboard</a>
+              <a href="/account?view=rewards" class="card__linklist-item link">Rewards</a>
+              <a href="/account?view=orders" class="card__linklist-item link">Online Orders</a>
+              <a href="/account?view=history" class="card__linklist-item link">In-Store Orders</a>
+              <a href="{{ routes.account_addresses_url }}" class="card__linklist-item link">Account Details</a>
+              <a href="{{ routes.account_logout_url }}" class="card__linklist-item link" data-no-instant>{{ 'customer.general.logout' | t }}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="value-picker-wrapper hidden-tablet-and-up">
+          <button class="value-picker-button value-picker-button--pill" aria-haspopup="true" aria-expanded="false" aria-controls="account-selector" data-action="open-value-picker">
+            Dashboard {%- render 'icon', icon: 'arrow-bottom' -%}
+          </button>
+
+          <div id="account-selector" class="value-picker" aria-hidden="true">
+            <div class="value-picker__inner">
+              <header class="value-picker__header">
+                <span class="value-picker__title text--strong">{{ 'customer.general.my_account' | t }}</span>
+                <button class="value-picker__close" data-action="close-value-picker" aria-controls="account-selector" aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+              </header>
+
+              <div class="value-picker__choice-list">
+								<a href="{{ routes.account_url }}" class="value-picker__choice-item is-selected">Dashboard</a>
+								<a href="/account?view=rewards" class="value-picker__choice-item">Rewards</a>
+								<a href="/account?view=orders" class="value-picker__choice-item">Online Orders</a>
+								<a href="/account?view=history" class="value-picker__choice-item">In-Store Orders</a>
+								<a href="{{ routes.account_addresses_url }}" class="value-picker__choice-item">Account Details</a>
+								<a href="{{ routes.account_logout_url }}" class="value-picker__choice-item" data-no-instant>{{ 'customer.general.logout' | t }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout__section">
+        <div class="card account_table">
+          <div class="card__section card__section--tight">
+            <h1 class="heading h1">Dashboard</h1>
+          </div>
+          <div class="dashboard_block">
+            <div class="dashboard_block__in" id="dashboard_block__in--tohide">
+              <div>
+                <h2 class="dashboard_block__info_title">Loading...</h2>
+              </div>
+            </div>
+            <div class="dashboard_block__in" id="dashboard_block__in--toshow" hidden="true">
+              <div class="dashboard_block__col">
+                <div class="dashboard_item">
+                  <!-- <div class="dashboard_block__points">
+                    <div class="dashboard_block__points_graph">
+                      {% comment %}
+											demo image
+                      <img src="{{ 'points_graph.svg' | asset_url }}" alt="" class="dashboard_block__points_img">
+                      {% endcomment %}
+
+                      <svg version="1.1" id="dashboard_block__points_graph--svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                          viewBox="0 0 137.7 146.9" style="enable-background:new 0 0 137.7 146.9;" xml:space="preserve">
+                        <style type="text/css">
+                          .st0{fill:#68A3DA;}
+                          .st1{fill:#EEC83D;}
+                        </style>
+                        <g>
+                          <path class="st0" d="M69,41.4c0,0,5.8-6,9.6-12.8c3.1-5.4,4.4-11.2,4.4-14.6C83,6.3,76.7,0,69,0c-7.7,0-14,6.3-14,14.1
+                            c0,3.4,1.3,9.2,4.4,14.6C63.2,35.4,69,41.4,69,41.4z"/>
+                        </g>
+                        <g transform="rotate(40 96.5 31)">
+                          <path class="st0" d="M96.3,51.3c0,0,5.8-6,9.6-12.7c3.1-5.4,4.4-11.1,4.4-14.6c0-7.8-6.3-14-14.1-14.1c-7.7,0-14,6.3-14,14
+                            c0,3.4,1.3,9.2,4.4,14.6C90.5,45.2,96.3,51.3,96.3,51.3L96.3,51.3z"/>
+                        </g>
+                        <g transform="rotate(70 112 56.5)">
+                          <path class="st0" d="M113,76.2c0,0,5.8-6,9.6-12.7c3.1-5.3,4.4-11.1,4.4-14.6c0-7.7-6.3-14-14.1-14c-7.8,0-14,6.3-14,14
+                            c0,3.4,1.3,9.2,4.4,14.6C107.2,70.1,113,76.2,113,76.2z"/>
+                        </g>
+                        <g transform="rotate(110 112 91.5)">
+                          <path class="st0" d="M110.3,107c0,0,5.8-6,9.7-12.7c3.1-5.4,4.4-11.1,4.4-14.6c0-7.7-6.3-14-14-13.9c-7.8,0-14.1,6.3-14.1,14
+                            c0,3.4,1.3,9.2,4.4,14.6C104.5,100.9,110.3,107,110.3,107z"/>
+                        </g>
+                        <g transform="rotate(140 98 117)">
+                          <path class="st0" d="M92.8,134.2c0,0,5.8-6,9.7-12.7c3.1-5.4,4.4-11.2,4.4-14.6c0-7.8-6.3-14-14-14c-7.7,0-14,6.3-14.1,14.1
+                            c0,3.5,1.3,9.2,4.3,14.6C87,128.2,92.8,134.2,92.8,134.2z"/>
+                        </g>
+                        <g transform="rotate(-180 65.5 127)">
+                          <path class="st0" d="M63.6,148.6c0,0,5.8-6,9.6-12.7c3.1-5.4,4.4-11.2,4.4-14.6c0-7.8-6.3-14.1-14-14.1c-7.7,0-14,6.3-14,14.1
+                            c0,3.4,1.3,9.2,4.4,14.6C57.8,142.6,63.6,148.6,63.6,148.6z"/>
+                        </g>
+                        <g transform="rotate(-140 35.5 117)">
+                          <path class="st0" d="M36.2,138.3c0,0,5.8-6,9.6-12.7c3.1-5.4,4.4-11.1,4.4-14.6c0-7.8-6.3-14-14.1-14.1c-7.7,0-14,6.3-14,14
+                            c0,3.4,1.3,9.2,4.4,14.6C30.4,132.3,36.2,138.3,36.2,138.3L36.2,138.3z"/>
+                        </g>
+                        <g transform="rotate(-110 20 92)">
+                          <path class="st1" d="M19.1,112.5c0,0,5.8-6,9.6-12.7c3.1-5.3,4.4-11.1,4.4-14.6c0-7.7-6.3-14-14.1-14c-7.8-0.1-14,6.3-14,13.9
+                            c0,3.5,1.3,9.3,4.4,14.6C13.2,106.5,19.1,112.5,19.1,112.5z"/>
+                        </g>
+                        <g transform="rotate(-70 20 56.5)">
+                          <path class="st1" d="M20.7,81.8c0,0,5.8-6,9.7-12.7c3.1-5.4,4.4-11.1,4.4-14.6c0-7.7-6.3-14-14-14c-7.8,0-14.1,6.3-14.1,14
+                            c0,3.4,1.3,9.2,4.4,14.6C14.9,75.7,20.7,81.8,20.7,81.8z"/>
+                        </g>
+                        <g transform="rotate(-40 35.5 31)">
+                          <path class="st1" d="M40.4,55.7c0,0,5.8-6,9.7-12.7c3.1-5.4,4.4-11.2,4.4-14.6c0-7.8-6.3-14-14-14s-14,6.3-14.1,14.1
+                            c0,3.4,1.3,9.2,4.3,14.6C34.6,49.7,40.4,55.7,40.4,55.7z"/>
+                        </g>
+                      </svg>
+                    </div>
+                  </div> -->
+                  <div class="dashboard_block__info">
+                    <h3 class="dashboard_block__info_title">my points</h3>
+                    <div class="dashboard_block__info_value" id="account_information__value--points">60</div>
+                    <div class="dashboard_block__info_text" id="account_information__value--pointstogo"><span>40</span> points to
+                      my next reward</div>
+                      <br>
+                    <div class="dashboard_block__points_btn">
+                      <a href="/account?view=rewards" class="btn_base">View My Rewards</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard_block__col">
+                <div class="dashboard_item">
+                  <div class="dashboard_block__info">
+                    <h3 class="dashboard_block__info_title">my rewards</h3>
+                    <div class="dashboard_block__info_value" id="account_information__value--dollars"><span>$</span>20</div>
+                    <div class="dashboard_block__info_text" id="account_information__value--expire">$<span>10</span> expires
+                      on <span>14/09/2022</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard_block__col">
+                <div class="dashboard_item">
+                  <div class="account_information">
+                    <h3 class="dashboard_block__info_title">account information</h3>
+                    <ul class="account_information__list">
+                      <li class="account_information__list_item">
+                        <div class="account_information__value" id="account_information__value--fname" data-value="First Name"></div>
+                      </li>
+                      <li class="account_information__list_item">
+                        <div class="account_information__value" id="account_information__value--lname" data-value="Last Name"></div>
+                      </li>
+                      <li class="account_information__list_item">
+                        <div class="account_information__value" id="account_information__value--email" data-value="Email"></div>
+                      </li>
+                      <li class="account_information__list_item">
+                        <div class="account_information__value" id="account_information__value--mphone" data-value="Mobile phone"></div>
+                      </li>
+                      <li class="account_information__list_item">
+                        <div class="account_information__value" id="account_information__value--hphone" data-value="Home phone"></div>
+                      </li>
+                      <li class="account_information__list_item">
+                        <a href="/account/addresses" class="account_edit_btn" data-action="open-modal" aria-controls="general_information">Edit Account Details</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %}EDIT FORM FOR GENERAL INFORMATION STATIC MARKUP!!!{% endcomment %}
+  {% comment %}{% include 'form_modal' %}{% endcomment %}
+  {% comment %}EDIT FORM FOR GENERAL INFORMATION STATIC MARKUP!!!{% endcomment %}
+
+</section>
+
+{% schema %}
+{
+  "name": "My Account"
+}
+{% endschema %}

@@ -1,0 +1,209 @@
+{{ 'login_page.css' | asset_url | stylesheet_tag }}
+
+{% for block in section.blocks %}
+{% if block.type == 'login_nav' %}
+{% assign login_nav = true %}
+{% endif %}
+{% if block.type == 'foter_contact' %}
+{% assign foter_contact = true %}
+{% endif %}
+{% if block.type == 'footer_info' %}
+{% assign footer_info = true %}
+{% endif %}
+{% endfor %}
+
+
+<div class="login_block">
+  <div class="login_block__head">
+    {% if section.settings.page_logo != blank %}
+    <a href="{{ routes.root_url }}" class="login_block__img">
+      <img src="{{ section.settings.page_logo | img_url: 'master' }}" alt="{{ section.settings.page_logo.alt | escape }}" class="login_block__img_in">
+    </a>
+    {% endif %}
+    {% if section.settings.page_descr != blank %}
+    <div class="login_block__text"> {{ section.settings.page_descr }}</div>
+    {% endif %}
+    {% if login_nav == true %}
+    <nav class="login_block__nav">
+      <ul class="login_nav_list">
+        {% for block in section.blocks %}
+        {% if block.type == 'login_nav' %}
+        <li class="login_nav_list__item">
+          <a href="{{ block.settings.item_url }}" class="login_nav_list__link">{{ block.settings.item_title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+    {% endif %}
+  </div>
+  <form class="login_block__form">
+    {% if section.settings.form_descr %}
+    <div class="login_block__text login_block__text--style_mod">
+      {{ section.settings.form_descr }}
+    </div>
+    {% endif %}
+    <div class="field_list__group">
+      <ul class="field_list">
+        <li class="field_list__item">
+          <div class="field_item">
+            <input type="email" class="field_item__input" id="loginEmail" name="Email" required>
+            <label for="loginEmail" class="field_item__label">Email Address</label>
+          </div>
+        </li>
+        <li class="field_list__item">
+          <div class="field_item">
+            <input type="password" class="field_item__input" id="loginPassword" name="Password" required>
+            <label for="loginPassword" class="field_item__label">Password</label>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="login_block__form_bottom">
+      <button class="login_block__form__button">Login</button>
+      <a href="#" class="login_block__form__link">Forgot your password?</a>
+    </div>
+  </form>
+</div>
+<div class="login_footer">
+  <div class="container login_footer__in">
+    <div class="login_footer__col">
+      {% if section.settings.footer_logo != blank %}
+      <a href="{{ routes.root_url }}" class="login_footer__logo">
+        <img src="{{ section.settings.footer_logo | img_url: 'master' }}" alt="{{ section.settings.footer_logo.alt | escape }}" class="login_footer__img">
+      </a>
+      {% endif %}
+      {% if foter_contact == true %}
+      <ul class="login_footer__list">
+        {% for block in section.blocks  %}
+          {% if block.type == 'foter_contact' %}
+          <li class="login_footer__list_item">
+            <a href="{{ block.settings.item_url }}" class="login_footer__link">
+              {% if block.settings.item_icon != blank %}
+              <span class="login_footer__icon">
+                <img src="{{ block.settings.item_icon | img_url: 'master' }}" alt="{{ block.settings.item_icon.alt | escape }}" class="login_footer__icon_img">
+              </span>
+              {% endif %}
+              {{ block.settings.item_title }}
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if footer_info == true %}
+      <div class="login_footer__info">
+        <ul class="footer_info_list">
+          {% for block in section.blocks %}
+            {% if block.type == 'footer_info' %}
+            <li class="footer_info_list__item">
+              <a href="{{ block.settings.item_url }}" class="footer_info_list__link">{{ block.settings.item_title }}</a>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    {% if section.settings.footer_img != blank %}
+    <div class="login_footer__col login_footer__col--side_mod">
+      <div class="login_block__footer_img">
+        <img src="{{ section.settings.footer_img | img_url: 'master' }}" alt="{{ section.settings.footer_img.alt | escape }}" class="login_footer__img">
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="{{ 'loginPage.js' | asset_url }}"></script>
+
+{% schema %}
+{
+"name": "Login page",
+"tag": "section",
+"class": "section login_page_section",
+"settings": [
+{
+"type": "image_picker",
+"id": "page_logo",
+"label": "Login page logo"
+},
+{
+  "type": "richtext",
+  "id": "page_descr",
+  "label": "Add page description"
+  },
+  {
+    "type": "richtext",
+    "id": "form_descr",
+    "label": "Add text for form"
+    },
+{
+"type": "image_picker",
+"id": "footer_logo",
+"label": "Login page logo for footer"
+},
+{
+"type": "image_picker",
+"id": "footer_img",
+"label": "Login page image for footer"
+}
+],
+"blocks": [
+{
+"type": "login_nav",
+"name": "Login nav item",
+"settings": [
+{
+"type": "url",
+"id": "item_url",
+"label": "Add link"
+},
+{
+"type": "text",
+"id": "item_title",
+"label": "Add title"
+}
+]
+},
+{
+"type": "foter_contact",
+"name": "Footer contact item",
+"settings": [
+{
+"type": "image_picker",
+"id": "item_icon",
+"label": "Add icon"
+},
+{
+"type": "url",
+"id": "item_url",
+"label": "Add link"
+},
+{
+"type": "text",
+"id": "item_title",
+"label": "Add title"
+}
+]
+},
+{
+"type": "footer_info",
+"name": "Footer info item",
+"settings": [
+{
+"type": "url",
+"id": "item_url",
+"label": "Add link"
+},
+{
+"type": "text",
+"id": "item_title",
+"label": "Add title"
+}
+]
+}
+]
+}
+
+{% endschema %}

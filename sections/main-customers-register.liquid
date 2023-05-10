@@ -1,0 +1,126 @@
+<section data-section-id="{{ section.id }}" data-section-type="register">
+  <div class="container">
+    <form method="post" id="create_customer" class="form form--main ca_recaptcha_form">
+      <header class="form__header">
+        <h1 class="form__title heading h1">{{ 'customer.register.create_account' | t }}</h1>
+        <p class="form__legend">{{ 'customer.register.description' | t }}</p>
+      </header>
+
+      <p class="alert alert--error" hidden="true"></p>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="text" id="general_information__value--fname" class="form__field form__field--text" name="customer[first_name]" autocomplete="given-name" required="required">
+        <label for="general_information__value--fname" class="form__floating-label">{{ 'customer.register.first_name' | t }}</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="text" id="general_information__value--lname" class="form__field form__field--text" name="customer[last_name]" autocomplete="family-name" required="required">
+        <label for="general_information__value--lname" class="form__floating-label">{{ 'customer.register.last_name' | t }}</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="email" id="general_information__value--email" class="form__field form__field--text" name="customer[email]" required="required" {% if form.errors contains 'email' %}aria-invalid="true"aria-describedby="register-form-error"{% endif %}>
+        <label for="general_information__value--email" class="form__floating-label">{{ 'customer.register.email' | t }}</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="password" id="general_information__value--password" class="form__field form__field--text" name="customer[password]" required="required" autocomplete="new-password" {% if form.errors contains 'password' %}aria-invalid="true"aria-describedby="register-form-error"{% endif %}>
+        <label for="general_information__value--password" class="form__floating-label">{{ 'customer.register.password' | t }}</label>
+      </div>
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="password" id="general_information__value--repassword" class="form__field form__field--text" name="customer[password_confirmation]" autocomplete="new-password" required="required">
+        <label for="general_information__value--repassword" class="form__floating-label">{{ 'customer.reset_password.password_confirmation' | t }}</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <div class="select-wrapper select-wrapper--primary is-filled" id="account_information__value--store_select">
+          {%- render 'icon', icon: 'arrow-bottom' -%}
+          <select name="preferred_store[stores]" id="general_information__value--store">
+            <option value="25">Palmers Albany</option>
+            <option value="30">Palmers Hamilton</option>
+            <option value="62">Palmers Miramar</option>
+            <option value="50">Palmers New Plymouth</option>
+            <option value="23">Palmers Pakuranga</option>
+            <option value="61">Palmers Plimmerton</option>
+            <option value="24">Palmers Remuera</option>
+            <option value="31">Palmers Rotorua</option>
+            <option value="36">Palmers St James</option>
+            <option value="32">Palmers Tauranga</option>
+            <option value="34">Palmers Welcome Bay</option>
+            <option value="10">Palmers Whangarei</option>
+          </select>
+        </div>
+        <label for="general_information__value--store" class="form__floating-label">Preferred store</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input id="general_information__value--mphone" type="tel" class="form__field form__field--text form__field--text is-filled" name="general_information[phone]" placeholder="" value="">
+        <label for="general_information__value--mphone" class="form__floating-label">Mobile phone</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input id="general_information__value--hphone" type="tel" class="form__field form__field--text form__field--text is-filled" name="general_information[2]" placeholder="" value="">
+        <label for="general_information__value--hphone" class="form__floating-label">Home phone</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <div class="select-wrapper select-wrapper--primary is-filled" id="account_information__value--signup_method">
+          {%- render 'icon', icon: 'arrow-bottom' -%}
+          <select name="signup_method" id="general_information__value--signup_method">
+            <option value="new" selected="true">I'm a new Palmers Rewards customer</option>
+            <option value="existing">I'm an existing Palmers Rewards cardholder</option>
+          </select>
+        </div>
+        <label for="general_information__value--signup_method" class="form__floating-label">Customer type</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled" hidden="true">
+        <input id="general_information__value--card" type="text" class="form__field form__field--text form__field--text is-filled" value="">
+        <label for="general_information__value--card" class="form__floating-label">Palmers Rewards Card Number</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input id="general_information__value--receipt" type="text" class="form__field form__field--text form__field--text is-filled" value="">
+        <label for="general_information__value--receipt" class="form__floating-label">Receipt Number (optional)</label>
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" class="checkbox" name="address[default]" id="general_information__value--terms" value="true" required="true">
+          {% render 'icon', icon: 'check' %}
+        </div>
+        <label for="general_information__value--terms">I have read and understood the
+          <a href="/pages/palmers-rewards-terms-conditions" target="_blank">terms and conditions</a>
+        </label>
+      </div>
+
+      <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.register.submit' | t }}</button>
+
+      {% comment %}<small class="form__spam-disclaimer">{{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}</small>{% endcomment %}
+
+      <div class="form__secondary-action">
+        <p>{{ 'customer.register.already_have_account' | t }}
+          <a href="{{ routes.account_login_url }}" class="link link--accented">{{ 'customer.register.login' | t }}</a>
+        </p>
+      </div>
+    </form>
+    {%- comment -%}
+      A hidden login form
+    {%- endcomment -%}
+    <form id="customer_api_login" style="display: none !important" class="register-login ca_recaptcha_form" method="post" action="">
+      <input type="hidden" id="customer_api_login_return" name="returnUrl" value="{{ shop.url }}/account/">
+      <input type="hidden" name="respond200" value="true">
+      <input type="hidden" id="customer_api_login_redirect" name="redirect" value="">
+      <p class="alert alert--error" id="login-form-error" hidden="true"></p>
+      <input type="email" id="customer_api_login_email" name="email" required="required">
+      <input type="password" id="customer_api_login_password" name="password" required="required">
+      <button type="submit" class="form__submit">{{ 'customer.login.submit' | t }}</button>
+    </form>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Register"
+  }
+{% endschema %}
