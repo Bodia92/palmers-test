@@ -1,0 +1,7 @@
+<div class="articles">
+  <ul class="articles__list">
+    {% for article in blog.articles %}
+    {% include 'article_item' %}
+    {% endfor %}
+  </ul>
+</div>

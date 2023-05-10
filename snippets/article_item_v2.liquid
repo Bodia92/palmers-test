@@ -1,0 +1,17 @@
+<li class="articles__list_item">
+  <a href="{{ article.url }}" class="article_item article_item--resource_mod">
+    <div class="article_item__image">
+      <img src="{{ article.image | img_url: 'master' }}" alt="{{ aricle.title }}" class="article_item__image_in">
+    </div>
+    <div class="article_item__content">
+      <div class="article_item__tags">
+        {% for tag in article.tags %}
+          {{ tag }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </div>
+      <div class="article_item__title">
+        {{ article.title }}
+      </div>
+    </div>
+  </a>
+</li>

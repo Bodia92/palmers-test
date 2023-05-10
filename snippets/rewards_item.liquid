@@ -1,0 +1,49 @@
+{%- capture item_mod_class -%}three_blocks_item--{{ item_mod }}{%- endcapture -%}
+<div class="three_blocks_item {{ item_mod_class }}">
+  <div class="three_blocks_item__in three_blocks_item__in--wrap_mod">
+
+    {% if block.settings.item_image_1 != blank or block.settings.item_image_2 != blank %}
+    <div class="three_blocks_item__content_col">
+      {% if block.settings.item_image_1 != blank %}
+      <div class="three_blocks_item__img">
+        <img src="{{ block.settings.item_image_1 | img_url: 'master' }}" alt="{{ block.settings.item_image_1.alt | escape }}" class="three_blocks_item__img_in">
+      </div>
+      {% endif %}
+      {% if block.settings.item_image_2 != blank %}
+      <div class="three_blocks_item__img three_blocks_item__img--size_mod three_blocks_item__img--desctop_mod">
+        <img src="{{ block.settings.item_image_2 | img_url: 'master' }}" alt="{{ block.settings.item_image_2.alt | escape }}" class="three_blocks_item__img_in">
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if block.settings.item_rewards_description != blank %}
+    <div class="three_blocks_item__content_col">
+      {% if block.settings.item_rewards_description != blank %}
+      <div class="three_blocks_item__rewards_descr">
+        {{ block.settings.item_rewards_description  }}
+      </div>
+      {% endif %}
+      {% if block.settings.btn_1_title != blank or block.settings.btn_2_title != blank %}
+      <ul class="three_blocks_item__btns">
+        {% if block.settings.btn_1_title != blank %}
+        <li class="three_blocks_item__btns_item">
+          <a href="{{ block.settings.btn_1_url }}" class="three_blocks_item__btn">{{ block.settings.btn_1_title }}</a>
+        </li>
+        {% endif %}
+        {% if block.settings.btn_2_title != blank %}
+        <li class="three_blocks_item__btns_item">
+          <a href="{{ block.settings.btn_2_url }}" class="three_blocks_item__btn three_blocks_item__btn--accent_mod">{{ block.settings.btn_2_title }}</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+      {% if block.settings.item_image_2 != blank %}
+      <div class="three_blocks_item__img three_blocks_item__img--size_mod three_blocks_item__img--mobile_mod">
+        <img src="{{ block.settings.item_image_2 | img_url: 'master' }}" alt="{{ block.settings.item_image_2.alt | escape }}" class="three_blocks_item__img_in">
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div>
+</div>

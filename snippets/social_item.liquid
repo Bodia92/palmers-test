@@ -1,0 +1,44 @@
+{%- capture item_mod_class -%}three_blocks_item--{{ item_mod }}{%- endcapture -%}
+<div class="three_blocks_item {{ item_mod_class }}">
+  <div class="three_blocks_item__in">
+
+    <div class="three_blocks_item__content">
+      {% if block.settings.social_item_title != blank %}
+      <h3 class="three_blocks_item__title">{{ block.settings.social_item_title}}</h3>
+      {% endif %}
+      {% if block.settings.social_link_1_title != blank or block.settings.social_link_2_title != blank %}
+      <ul class="three_blocks_item__socials">
+        {% if block.settings.social_link_1_icon != blank %}
+        <li class="three_blocks_item__socials_item">
+          <a href="{{ block.settings.social_link_1_url }}" 
+          class="three_blocks_item__socials_link">
+          {% if block.settings.social_link_1_icon != blank %}
+          <div class="three_blocks_item__socials_icon">
+            <img src="{{ block.settings.social_link_1_icon | img_url: 'master' }}" alt="{{ block.settings.social_link_1_icon.alt | escape }}" class="three_blocks_item__socials_icon_img">
+          </div>
+          {% endif %}
+          {{ block.settings.social_link_1_title }}
+        </a>
+        </li>
+        {% endif %}
+        {% if block.settings.social_link_2_icon != blank %}
+        <li class="three_blocks_item__socials_item">
+          <a href="{{ block.settings.social_link_2_url }}" class="three_blocks_item__socials_link">
+            {% if block.settings.social_link_2_icon != blank %}
+            <div class="three_blocks_item__socials_icon">
+              <img src="{{ block.settings.social_link_2_icon | img_url: 'master' }}" alt="{{ block.settings.social_link_2_icon.alt | escape }}" class="three_blocks_item__socials_icon_img">
+            </div>
+            {% endif %}
+            {{ block.settings.social_link_2_title }}
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+      {% if block.settings.social_item_descr != blank %}
+      <div class="three_blocks_item__descr">{{ block.settings.social_item_descr}}</div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>

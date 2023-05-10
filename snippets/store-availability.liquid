@@ -1,0 +1,72 @@
+<div class="store-availability-container" data-section-id="{{ section.id }}" data-section-type="store-availability" data-count="">
+    <div class="store-availability-information selected-available" style="display: none">
+      {%- render 'icon', icon: 'store-availability-in-stock' -%}
+      <div class="store-availability-information-container">
+          <p class="store-availability-information__title text--strong">
+            {{- 'store_availability.general.pick_up_available_at' | t -}}
+          </p>
+
+          <p class="store-availability-information__stock">{{ closest_location.pick_up_time }}</p>
+
+          <p class="store-availability-information__stores">
+            <button class="store-availability-information__link link link--accented" data-action="open-modal" aria-controls="StoreAvailabilityModal-{{ product_variant.id }}">
+                {{- 'store_availability.general.check_other_stores' | t -}}
+            </button>
+          </p>
+      </div>
+    </div>
+  
+  	<div class="store-availability-information selected-unavailable" style="display: none">
+      {%- render 'icon', icon: 'store-availability-out-of-stock' -%}
+      <div class="store-availability-information-container">
+          <p class="store-availability-information__title text--strong">
+            {{- 'store_availability.general.pick_up_unavailable_at' | t -}}
+          </p>
+          <p class="store-availability-information__stores">
+            <button class="store-availability-information__link" data-action="open-modal" aria-controls="StoreAvailabilityModal-{{ product_variant.id }}">
+              {{- 'store_availability.general.check_other_stores' | t -}}
+            </button>
+          </p>
+      </div>
+    </div>
+
+    <div class="store-availabilities-modal modal" aria-hidden="true" tabindex="-1" id="StoreAvailabilityModal-{{ product_variant.id }}">
+      <div class="modal__dialog" role="dialog">
+        <div class="store-availabilities-modal__header modal__header modal__header--bordered">
+          <div class="store-availabilities-modal__product-information">
+            <h2 class="store-availabilities-modal__product-title modal__title heading h3">{{ product_variant.product.title }}</h2>
+
+            {%- if product_variant.title != 'Default Title' -%}
+              <p class="store-availabilities-modal__variant-title">{{ product_variant.title }}</p>
+            {%- endif -%}
+          </div>
+
+          <button class="store-availabilities-modal__close modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+            {%- render 'icon', icon: 'close' -%}
+          </button>
+        </div>
+
+        <div class="store-availabilities-list modal__content">
+          
+          
+            <div class="store-availability-list__item">
+              <p class="store-availability-list__location text--strong">Location Name</p>
+
+              <div class="store-availability-list__item-info">
+                <div class="store-availability-list__stock">
+                 {%- render 'icon', icon: 'store-availability-in-stock' -%} {{ 'store_availability.general.pick_up_available' | t }}
+                 {%- render 'icon', icon: 'store-availability-out-of-stock' -%} {{ 'store_availability.general.pick_up_currently_unavailable' | t }}
+                </div>
+
+                <div class="store-availability-list__contact">
+                  Address, Phone
+                </div>
+              </div>
+            </div>
+          
+          
+          
+        </div>
+      </div>
+    </div>
+</div>

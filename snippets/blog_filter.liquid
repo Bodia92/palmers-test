@@ -1,0 +1,35 @@
+{% for article in blog.articles %}
+  {% assign count = count | plus: 1 %}
+{% endfor %}
+
+{% if paginate.current_page == 1 %}
+{%- assign showing_pages = count | prepend: '1-' -%}
+{% else %}
+{% assign current_page = paginate.current_page | minus: 1 %}
+{% assign countItemsBefore = atricle_count | times: current_page %}
+{% assign countItemsAfter = countItemsBefore | plus: count %}
+{%- assign showing_pages_after = countItemsBefore | append: '-' -%}
+{%- assign showing_pages = countItemsAfter | prepend: showing_pages_after -%}
+{% endif %}
+
+<div class="blog_filter">
+  <div class="blog_filter__col">
+    <div class="blog_filter_counter blogCounter">Showing {{ showing_pages }} of {{ blog.articles_count }} results</div>
+  </div>
+  <div class="blog_filter__col">
+    <form class="blog_filter__search" action="{{ routes.search_url }}" method="get">
+      <input type="hidden" name="type" value="article">
+      <input type="hidden" name="options[prefix]" value="last">
+      <input type="hidden" name="options[unavailable_products]" value="{{ settings.search_unavailable_products }}">
+
+      <div class="form__connected-item">
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <input id="search" type="text" class="form__field form__field--text" name="q" autocomplete="off" autocorrect="off">
+          <label for="search" class="form__floating-label">Search</label>
+        </div>
+
+        <button type="submit" class="form__connection button button--primary" aria-label="{{ 'search.general.input_placeholder' | t }}">{% render 'icon', icon: 'search' %}</button>
+      </div>
+    </form>
+  </div>
+</div>

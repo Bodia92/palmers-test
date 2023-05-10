@@ -1,0 +1,18 @@
+{% if block.settings.item_type == 'rewards' %}
+{% assign item_mod = 'rewards_mod' %}
+{% endif %}
+{% if block.settings.item_type == 'social' %}
+{% assign item_mod = 'social_mod' %}
+{% endif %}
+{%- if block.settings.item_type == 'sign_up' -%}
+{% assign item_mod = 'sign_up_mod' %}
+{% endif %}
+
+{% case block.type %}
+{% when 'rewards' %}
+{% include 'rewards_item' %}
+{% when 'social' %}
+{% include 'social_item' %}
+{% when 'sign_up' %}
+{% include 'sign_up_item' %}
+{% endcase %}

@@ -1,0 +1,62 @@
+<div id="general_information" class="modal" aria-hidden="true">
+	<div class="modal__dialog" role="dialog">
+		<header class="modal__header">
+			<h3 class="modal__title heading h2">Account Information</h3>
+			<button class="modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+				{%- render 'icon', icon: 'close' -%}
+			</button>
+		</header>
+
+		<div class="modal__content modal__content--ios-push">
+
+			<form action="">
+				<p class="alert alert--error" hidden="true"></p>
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--fname" type="text" class="form__field form__field--text form__field--text is-filled" name="general_information[first_name]" value="Andrew" autofocus>
+					<label for="general_information__value--fname" class="form__floating-label">First Name</label>
+				</div>
+
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--lname" type="text" class="form__field form__field--text form__field--text is-filled" name="general_information[last_name]" value="Hilson">
+					<label for="general_information__value--lname" class="form__floating-label">Last Name</label>
+				</div>
+
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--email" type="email" class="form__field form__field--text form__field--text is-filled" name="general_information[email]" value="andrew.hilson@calibrate.co.nz">
+					<label for="general_information__value--email" class="form__floating-label">Email</label>
+				</div>
+
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--mphone" type="tel" class="form__field form__field--text form__field--text is-filled" name="general_information[phone]" value="09 123 4567">
+					<label for="general_information__value--mphone" class="form__floating-label">Mobile phone</label>
+				</div>
+
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--hphone" type="tel" class="form__field form__field--text form__field--text is-filled" name="general_information[2]" value="027 123 4567">
+					<label for="general_information__value--hphone" class="form__floating-label">Home phone</label>
+				</div>
+                
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<input id="general_information__value--bday" type="date" class="form__field form__field--text form__field--text is-filled" name="general_information[date_of_birth]" value="1991-01-01">
+					<label for="general_information__value--bday" class="form__floating-label">Date of birth</label>
+				</div>
+                
+
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+                    <div class="select-wrapper select-wrapper--primary is-filled">
+                        {%- render 'icon', icon: 'arrow-bottom' -%}
+                        <select name="general_information[gender]" id="general_information__value--gender" data-default="Female">
+                            <option value="Female" selected>Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Unknown">Other</option>
+                        </select>
+                    </div>
+
+					<label for="general_information__value--gender" class="form__floating-label">Gender</label>
+				</div>
+
+				<button class="form__submit button button--primary button--full">Save</button>
+			</form>
+		</div>
+	</div>
+</div>

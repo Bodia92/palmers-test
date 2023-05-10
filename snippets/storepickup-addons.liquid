@@ -1,0 +1,9 @@
+<script type='text/javascript'>document.addEventListener('cart:rerendered', function(event) {  
+  if (window.Zapiet && window.ZapietCachedSettings) {
+      Zapiet.start(ZapietCachedSettings);      
+      var cartWrapperElement = document.querySelector('.cart-wrapper');
+      var cartRecapScrollerElement = document.querySelector('.cart-recap__scroller');
+
+      cartWrapperElement.style.minHeight = cartRecapScrollerElement.clientHeight + 260 + 'px' ;
+  } 
+});</script>

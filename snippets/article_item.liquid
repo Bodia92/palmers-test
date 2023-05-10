@@ -1,0 +1,43 @@
+<li class="articles__list_item">
+  <div class="article_item{% if blog.metafields.custom.resource_post_type == true %} article_item--resource_mod{% endif %}">
+    <div class="article_item__image">
+      <img src="{{ article.image | img_url: 'master' }}" alt="{{ aricle.title }}" class="article_item__image_in">
+    </div>
+    {% if blog.metafields.custom.resource_post_type == true %}
+    <div class="article_item__content">
+      <div class="article_item__tags">
+        {% for tag in article.tags %}
+          {{ tag }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </div>
+      <div class="article_item__title">
+        {{ article.title }}
+      </div>
+      <div class="article_item__bottom">
+        <div class="article_item__bottom_col">
+          <a href="{{ article.url }}" class="article_item__bottom_link">Wiew Page</a>
+        </div>
+        {% if article.metafields.custom.download_pdf != blank %}
+          <div class="article_item__bottom_col">
+            <span class="article_item__bottom_icon">
+              {% render 'icon', icon: 'file_icon' %}
+            </span>
+            <a href="{{ article.metafields.custom.download_pdf | file_url  }}" class="article_item__bottom_link" target="_blank">Download PDF</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% else%}
+    <a href="{{ article.url }}" class="article_item__content">
+      <div class="article_item__tags">
+        {% for tag in article.tags %}
+          {{ tag }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </div>
+      <div class="article_item__title">
+        {{ article.title }}
+      </div>
+    </a>
+    {% endif %}
+  </div>
+</li>

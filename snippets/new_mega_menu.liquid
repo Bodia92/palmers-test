@@ -1,0 +1,87 @@
+{{ 'header_megamenu.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<nav class="header_megamenu headerMegamenu">
+  <div class="container header_megamenu__in">
+    <ul class="header_megamenu_list">
+      {%- for block in section.blocks -%}
+      <li class="header_megamenu_list__item">
+        <div class="header_megamenu_list__item_in megamenuListItem" data-drop-index="{{ forloop.index }}">
+          <div class="header_megamenu_list__item_title">{{ block.settings.menu_item_title }}</div>
+          <div class="header_megamenu_list__item_icon">
+            {% render 'icon', icon: 'arrow-bottom' %}
+          </div>
+        </div>
+      </li>
+      {%- endfor -%}
+    </ul>
+    {% include 'header_megamenu__side' %}
+  </div>
+  <div class="header_megamenu__dropdown_list">
+    {% for block in section.blocks %}
+    <div class="megamenu_dropdown_item megamenuDropdownItem" data-drop-index="{{ forloop.index }}">
+      <div class="container megamenu_dropdown_item__in">
+        {% if block.settings.item_image != blank or block.settings.item_image_heading != blank or block.settings.image_item_text != blank or block.settings.image_item_link_title != blank %}
+        <div class="megamenu_dropdown_item__col megamenu_dropdown_item__col--sidebar_mod">
+          {% if block.settings.item_image != blank %}
+          <div class="megamenu_dropdown_item__img">
+            {% if block.settings.image_item_link_title %}
+              <a href="{{ block.settings.image_item_link }}">
+            {% endif %}
+            <img src="{{ block.settings.item_image | img_url: 'master' }}" alt="{{ block.settings.item_image.alt | escape }}" class="cover_img">
+            {% if block.settings.image_item_link_title %}
+              </a>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% if block.settings.item_image_heading %}
+          <div class="megamenu_dropdown_item__title">
+            {{ block.settings.item_image_heading }}
+            </div>
+          {% endif %}
+          {% if block.settings.image_item_text %}
+          <div class="megamenu_dropdown_item__descr">
+            {% if block.settings.image_item_link_title %}
+              <a href="{{ block.settings.image_item_link }}">
+            {% endif %}
+            {{ block.settings.image_item_text }}
+            {% if block.settings.image_item_link_title %}
+              </a>
+            {% endif %}
+          </div>
+          {% endif %}
+          {% if block.settings.image_item_link_title %}
+          <a href="{{ block.settings.image_item_link }}" class="megamenu_dropdown_item__link">{{ block.settings.image_item_link_title }}</a>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% if linklists[block.settings.menu].links.size > 0 %}
+        <div class="megamenu_dropdown_item__col megamenu_dropdown_item__col--wrap_mod">
+          {% for link in linklists[block.settings.menu].links %}
+          {%- comment -%}
+          If submenu
+          {%- endcomment -%}
+          <div class="megamenu_dropdown_item__dropdown_list{% if block.settings.item_image != blank or block.settings.item_image_heading != blank or block.settings.image_item_text != blank or block.settings.image_item_link_title != blank %} megamenu_dropdown_item__dropdown_list--size_mod{% endif %}">
+            {% if link.links != blank %}
+            <a href="{{ link.url }}" class="megamenu_dropdown_item__dropdown_list__link">{{ link.title }}</a>
+            <ul class="megamenu_dropdown_item__dropdown_sublist">
+              {% for childlink in link.links %}
+              <li class="megamenu_dropdown_item__dropdown_sublist__item">
+                <a href="{{ childlink.url }}" class="megamenu_dropdown_item__dropdown_sublist__link">{{ childlink.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <a href="{{ link.url }}" class="megamenu_dropdown_item__dropdown_list__link">{{ link.title }}</a>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</nav>
+
+<script src="{{ 'headerMegamenu.js' | asset_url }}" defer></script>

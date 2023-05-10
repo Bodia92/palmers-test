@@ -1,0 +1,82 @@
+{% if section.settings.side_navigation_1.size > 0 or section.settings.side_navigation_2.size > 0 or section.settings.side_link_1_title != blank or section.settings.side_link_2_title != blank %}
+<div class="header_megamenu__side">
+  <ul class="header_megamenu_list">
+    {% if section.settings.side_navigation_1.size > 0 %}
+    <div class="header_megamenu_list__item">
+      <div class="header_megamenu_list__item_in megamenuListItem">
+        <div class="header_megamenu_list__item_title">
+          {{ linklists[section.settings.side_navigation_1].title }}
+          <span class="header_megamenu_list__item_icon">
+            {% render 'icon', icon: 'arrow-bottom' %}
+          </span>
+        </div>
+        <div class="side_nav_dropdown">
+          <ul class="megamenu_dropdown_item__dropdown_sublist">
+            {% for link in linklists[section.settings.side_navigation_1].links %}
+            <li class="megamenu_dropdown_item__dropdown_sublist__item">
+              <a href=" {{ link.url }}" class="megamenu_dropdown_item__dropdown_sublist__link">{{ link.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.side_navigation_2.size > 0 %}
+    <div class="header_megamenu_list__item">
+      <div class="header_megamenu_list__item_in megamenuListItem">
+        <div class="header_megamenu_list__item_title">
+          {{ linklists[section.settings.side_navigation_2].title }}
+          <span class="header_megamenu_list__item_icon">
+            {% render 'icon', icon: 'arrow-bottom' %}
+          </span>
+        </div>
+        <div class="side_nav_dropdown">
+          <ul class="megamenu_dropdown_item__dropdown_sublist">
+            {% for link in linklists[section.settings.side_navigation_2].links %}
+            <li class="megamenu_dropdown_item__dropdown_sublist__item">
+              <a href=" {{ link.url }}" class="megamenu_dropdown_item__dropdown_sublist__link">{{ link.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.side_link_1_title != blank %}
+    <div class="header_megamenu_list__item">
+      <a href="{{ section.settings.side_link_1 }}" class="side_col_link">
+        {% if section.settings.side_link_1_icon != blank or section.settings.side_link_1_icon_img != blank %}
+        <span class="side_col_link__icon">
+          {% if section.settings.side_link_1_icon != blank %}
+            {{ section.settings.side_link_1_icon }}
+          {% else %}
+            <img src="{{ section.settings.side_link_1_icon_img | img_url: 'master' }}" alt="" class="side_col_link__icon_img">
+          {% endif %}
+        </span>
+        {% endif %}
+        {{ section.settings.side_link_1_title }}
+      </a>
+    </div>
+    {% endif %}
+    {% if section.settings.side_link_2_title != blank %}
+    <div class="header_megamenu_list__item">
+      <a href="{{ section.settings.side_link_2 }}" class="side_col_link">
+        {% if section.settings.side_link_2_icon != blank or section.settings.side_link_2_icon_img != blank %}
+        <span class="side_col_link__icon">
+          {% if section.settings.side_link_2_icon != blank %}
+            {{ section.settings.side_link_2_icon }}
+          {% else %}
+            <img src="{{ section.settings.side_link_2_icon_img | img_url: 'master' }}" alt="" class="side_col_link__icon_img">
+          {% endif %}
+        </span>
+        {% endif %}
+        <span class="side_col_link__title">{{ section.settings.side_link_2_title }}</span>
+      </a>
+    </div>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

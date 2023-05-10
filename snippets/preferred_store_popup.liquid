@@ -1,0 +1,43 @@
+<div id="preferred_store" class="modal" aria-hidden="true">
+	<div class="modal__dialog" role="dialog">
+		<header class="modal__header">
+			<h3 class="modal__title heading h2">Preferred Store</h3>
+			<button class="modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+				{%- render 'icon', icon: 'close' -%}
+			</button>
+		</header>
+
+		<div class="modal__content modal__content--ios-push">
+			<p class="modal__description">Update your preferred store to receive a personalised experience from your team of local gardening experts.</p>
+
+			<form action="">
+				<p class="alert alert--error" hidden="true"></p>
+				<div class="form__input-wrapper form__input-wrapper--labelled">
+					<div class="select-wrapper select-wrapper--primary is-filled" id="account_information__value--store_select">
+						{%- render 'icon', icon: 'arrow-bottom' -%}
+						<select name="preferred_store[stores]" id="general_information__value--store">
+                          <option value="25">Palmers Albany</option>
+                          <option value="30">Palmers Hamilton</option>
+                          <option value="62">Palmers Miramar</option>
+                          <option value="50">Palmers New Plymouth</option>
+                          <option value="23">Palmers Pakuranga</option>
+                          <option value="65">Palmers Petone</option>
+                          <option value="61">Palmers Plimmerton</option>
+                          <option value="24">Palmers Remuera</option>
+                          <option value="31">Palmers Rotorua</option>
+                          <option value="36">Palmers St James</option>
+                          <option value="32">Palmers Tauranga</option>
+                          <option value="34">Palmers Welcome Bay</option>
+                          <option value="26">Palmers Westgate</option>
+                          <option value="10">Palmers Whangarei</option>
+						</select>
+					</div>
+
+					<label for="general_information__value--store" class="form__floating-label">Store</label>
+				</div>
+
+				<button class="form__submit button button--primary button--full">Save</button>
+			</form>
+		</div>
+	</div>
+</div>

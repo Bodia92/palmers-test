@@ -1,0 +1,45 @@
+    <div class="store-availabilities-modal modal" aria-hidden="true" tabindex="-1" id="StoreAvailabilityModal-picker">
+      <div class="modal__dialog" role="dialog">
+        <div class="store-availabilities-modal__header modal__header modal__header--bordered">
+          <div class="store-availabilities-modal__product-information">
+            <h2 class="store-availabilities-modal__product-title modal__title heading h3">Select your Palmers store</h2>
+          </div>
+
+          <button class="store-availabilities-modal__close modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+            {%- render 'icon', icon: 'close' -%}
+          </button>
+        </div>
+
+        <div class=" modal__content">
+
+            <div class="store-availability-list__item">
+              <p class="store-availability-list__location text--strong"> </p>
+
+                      <div class="form__input-wrapper form__input-wrapper--labelled">
+                        <input id="select-postcode" type="number" maxlength="4" class="form__field form__field--large form__field--text" name="select-postcode" autofocus required="required">
+                        <label for="select-postcode" class="form__floating-label">Enter your postcode</label>
+                      </div>
+
+                      <button class="button button--primary button--extra-large button--full" type="button" id="storePostcodeSearch">Shop Palmers</button>
+
+              <div class="store-availability-list__item-info">
+                <div class="store-availability-list__contact">
+                  
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+<style>
+#select-postcode::-webkit-outer-spin-button,
+#select-postcode::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#select-postcode[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

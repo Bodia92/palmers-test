@@ -1,0 +1,47 @@
+{%- capture item_mod_class -%}three_blocks_item--{{ item_mod }}{%- endcapture -%}
+<div class="three_blocks_item {{ item_mod_class }}">
+  <div class="three_blocks_item__in">
+    <div class="three_blocks_item__content">
+      {% if block.settings.item_title != blank %}
+    <h3 class="three_blocks_item__title three_blocks_item__title--style_mod">{{ block.settings.item_title}}</h3>
+    {% endif %}
+
+    {% if block.settings.item_subtitle != blank %}
+    <div class="three_blocks_item_subtitle">{{ block.settings.item_subtitle}}</div>
+    {% endif %}
+
+    {% if block.settings.sign_btn_1_title != blank or block.settings.sign_btn_2_title != blank or block.settings.sign_btn_1_icon != blank or block.settings.sign_btn_2_icon != blank %}
+    <ul class="three_blocks_item__sign_list">
+      {% if block.settings.sign_btn_1_title != blank or block.settings.sign_btn_1_icon != blank %}
+      <li class="three_blocks_item__sign_item">
+        <a href="{{ block.settings.sign_btn_1_url }}" class="three_blocks_item__sign_link">
+          {% if block.settings.sign_btn_1_icon != blank %}
+          <span class="three_blocks_item__sign_icon">
+            <img src="{{ block.settings.sign_btn_1_icon | img_url: 'master' }}" alt="{{ block.settings.sign_btn_1_icon.alt | escape }}" class="three_blocks_item__sign_icon_img">
+          </span>
+          {% endif %}
+          {% if block.settings.sign_btn_1_title %}
+          {{ block.settings.sign_btn_1_title }}
+          {% endif %}
+        </a>
+      </li>
+      {% endif %}
+      {% if block.settings.sign_btn_2_title != blank or block.settings.sign_btn_2_icon != blank %}
+      <li class="three_blocks_item__sign_item">
+        <a href="{{ block.settings.sign_btn_2_url }}" class="three_blocks_item__sign_link">
+          {% if block.settings.sign_btn_2_icon %}
+          <span class="three_blocks_item__sign_icon">
+            <img src="{{ block.settings.sign_btn_2_icon | img_url: 'master' }}" alt="{{ block.settings.sign_btn_2_icon.alt | escape }}" class="three_blocks_item__sign_icon_img">
+          </span>
+          {% endif %}
+          {% if block.settings.sign_btn_2_title != blank %}
+          {{ block.settings.sign_btn_2_title }}
+          {% endif %}
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+    </div>
+  </div>
+</div>

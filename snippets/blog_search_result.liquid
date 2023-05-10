@@ -1,0 +1,39 @@
+{{ 'blog_page.css' | asset_url | stylesheet_tag }}
+{{ 'article_list.css' | asset_url | stylesheet_tag }}
+
+<section class="section hero_blog_section" data-section-id="{{ section.id }}" data-section-type="hero-blog-section">
+	<div class="section_bg">
+		<img src="{{ section.settings.search_hero_background | img_url: 'master' }}" alt="{{ section.settings.search_hero_title.alt | escape }}" class="section_bg__img">
+	</div>
+	<div class="container">
+		<div class="blog_hero_section__in">
+			<div class="hero_blog_section__text">
+				<h1 class="hero_blog_section__title">{{ page_title }}</h1>
+			</div>
+		</div>
+	</div>
+</section>
+{%- assign atricle_count = section.settings.blog_posts_count -%}
+
+{%- paginate search.results by atricle_count -%}
+	<section class="section blog_section" data-section-id="{{ section.id }}" data-section-type="blog-articles-list">
+		<div class="container">
+			<div class="blog_section__content_line blog_section__content_line__list_mod">
+				<div class="articles">
+					{% if search.results.size < 1 %}
+						<h2 class="section__title">No search results</h2>
+					{% else %}
+						<ul class="articles__list">
+							{% for article in search.results %}
+								{% include 'article_item' %}
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+			</div>
+			<div class="blog_section__content_line">
+				{% include 'pagination' %}
+			</div>
+		</div>
+	</section>
+{%- endpaginate -%}
