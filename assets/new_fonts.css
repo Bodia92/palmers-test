@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-BoldItalic.woff2?v=83390972041513561681661992693') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-BoldItalic.woff?v=100132202381577179391661992693') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Bold.woff2?v=119426863877167804101661992688') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Bold.woff?v=14311999344740756501661992693') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-LightItalic.woff2?v=176993102078818833141661992687') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-LightItalic.woff?v=181686884179531706611661992694') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Italic.woff2?v=6142568955581991371661992693') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Italic.woff?v=58235002587511837741661992692') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SemplicitaPro';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/SemplicitaPro-Semibold.woff2?v=116708066451110078371661992688') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/SemplicitaPro-Semibold.woff?v=181655455776255595881661992689') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/PTSans-NarrowBold.woff2?v=123978408888445948091661992693') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/PTSans-NarrowBold.woff?v=73450766848534969491661992694') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Regular.woff2?v=85281613421182398201661992694') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Regular.woff?v=120693393702885851961661992694') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Pacifico.woff2?v=122609482424736063311661992692') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Pacifico.woff?v=70726081154688084071661992693') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Europa';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Light.woff2?v=49212369266461510121661992689') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/Europa-Light.woff?v=98012530903182456621661992694') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/PTSans-Narrow.woff2?v=116847070973249842491661992694') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/PTSans-Narrow.woff?v=140927721598256297611661992693') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SemplicitaPro';
+  src: url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/SemplicitaPro-Medium.woff2?v=1315774719195235071661992688') format('woff2'),
+      url('//cdn.shopify.com/s/files/1/0381/1111/7449/t/15/assets/SemplicitaPro-Medium.woff?v=14404299280703361801661992691') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+

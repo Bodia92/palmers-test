@@ -1,0 +1,275 @@
+.article_hero {
+  padding: 0;
+  margin: 0;
+}
+
+.article_hero__breadcrumbs {
+  padding: 20px 0;
+}
+
+.article_hero__breadcrumbs .breadcrumbs__list a {
+  color: #3a2a2f;
+}
+
+.article_hero__head {
+  position: relative;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  align-content: flex-end;
+
+  width: 100%;
+  min-height: 280px;
+  padding: 35px 20px;
+}
+
+.article_hero__img {
+  z-index: -1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+.article_hero__img::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  content: '';
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0,0,0, .5);
+}
+
+.article_hero__img_in {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.article_hero__head_in {
+  position: relative;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+
+  width: 100%;
+  max-width: 1128px;
+  margin: 0 auto;
+}
+
+.article_hero__title {
+  margin: 0;
+
+  color: #ffffff;
+  font-family: "Europa";
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+}
+
+
+@media (min-width: 1024px) {
+  .article_hero__title {
+    max-width: 78%;
+    padding-right: 30px;
+
+    flex: 1 0 auto;
+  }
+}
+
+@media (max-width: 1023px) {
+  .article_hero__title {
+    width: 100%;
+
+    text-align: center;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .article_hero__title {
+    font-size: 56px;
+    line-height: calc(56 / 56);
+  }
+}
+
+@media (max-width: 767px) {
+  .article_hero__title {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .article_hero__head_side {
+    flex: none;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 1023px) {
+  .article_hero__head_side {
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
+  }
+}
+
+.article_hero__head_link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  min-width: 160px;
+  padding: 0 20px;
+  height: 48px;
+  border-radius: 4px;
+  background-color: #ec1556;
+
+  text-decoration: none;
+  color: #ffffff;
+  font-family: "Europa";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: center;
+}
+
+.article_hero__head_link_icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+
+  color: currentColor;
+}
+
+.article_hero__head_link_icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.article_content_section {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.article_content {
+  width: 100%;
+  padding: 46px 20px 86px;
+
+  border-radius: 3px;
+  border: 1px solid #e7e2de;
+  background-color: #ffffff;
+}
+
+.article_content__in {
+  width: 100%;
+  max-width: 1128px;
+  margin: 0 auto;
+}
+
+.article_content__head {
+  width: 100%;
+
+  color: #3a2a2f;
+  font-family: "Europa";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: calc(28 / 20);
+}
+
+.article_content__head:not(:last-child) {
+  margin-bottom: 46px;
+}
+
+.article_content__text {
+  width: 100%;
+  padding-bottom: 38px;
+
+  color: #3a2a2f;
+  font-family: "Europa";
+  font-size: 18px;
+  font-weight: 300;
+  line-height: calc(24 / 18);
+
+  border-bottom: 1px solid #ece8e5;
+}
+
+.article_content__text:not(:last-child) {
+  margin-bottom: 38px;
+}
+
+.article_content__text h2 {
+  color: #235833;
+  font-family: "Europa";
+  font-weight: 400;
+  font-size: 32px;
+  line-height: calc(48 / 32);
+}
+
+.article_content__text h3 {
+  color: #3a2a2f;
+  font-family: "Europa";
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: calc(28 / 26);
+}
+
+.article_content__text ul:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.article_content__text img {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+/*.article_content__text p {
+  font-weight: 400;
+}*/
+
+.article_content__text a {
+  text-decoration: underline;
+  color: #ec1556;
+}
+
+.article_content__bottom {
+  width: 100%;
+
+  color: #3a2a2f;
+  font-family: "Europa";
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: calc(24 / 15);
+}
+
+.featured_articles__title {
+  width: 100%;
+
+  color: #235833;
+  font-family: "Europa";
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+}

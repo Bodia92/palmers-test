@@ -1,0 +1,162 @@
+.about_history {
+  width: 100%;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 26px;
+}
+
+.about_history__list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.about_history__list_item {
+  width: 100%;
+}
+
+.about_history__list_item:not(:last-child) {
+  margin-bottom: 104px;
+}
+
+.about_history__item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+
+  width: 100%;
+}
+
+.about_history__img {
+
+  flex: none;
+}
+
+
+@media (min-width: 1368px){
+  .about_history__img {
+    width: 640px;
+    height: 512px;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 1367px) {
+  .about_history__img {
+    position: relative;
+    width: 40%;
+    padding-top: calc(512 / 640 * 60%);
+  }
+}
+
+@media (min-width: 768px) {
+  .about_history__list_item:nth-child(even) .about_history__img {
+    order: 2;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .about_history__img {
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    padding-top: calc(512 / 640 * 100%);
+  }
+}
+
+
+.about_history__img_in {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+@media (max-width: 1367px) {
+  .about_history__img_in {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+
+@media (min-width: 1368px){
+  .about_history__text {
+    width: calc(100% - 640px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1367px) {
+  .about_history__text {
+    width: 60%;
+  }
+}
+
+@media (max-width: 767px) {
+  .about_history__text {
+    width: 100%;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .about_history__list_item:nth-child(even) .about_history__text {
+    order: 1;
+  }
+}
+
+@media (min-width: 1368px){
+  .about_history__list_item:nth-child(even) .about_history__text {
+    padding-right: 118px;
+  }
+  
+  .about_history__list_item:nth-child(odd) .about_history__text {
+    padding-left: 118px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1367px) {
+  .about_history__list_item:nth-child(even) .about_history__text {
+    padding-right: 60px;
+  }
+  
+  .about_history__list_item:nth-child(odd) .about_history__text {
+    padding-left: 60px;
+  }
+}
+
+.about_history__title {
+  width: 100%;
+  margin: 0 0 16px;
+
+  color: #235833;
+  font-family: "Europa";
+  font-size: 32px;
+  font-weight: 400;
+  line-height: calc(48 / 32);
+}
+
+.about_history__descr {
+  width: 100%;
+
+  color: #3a2a2f;
+  font-family: "Europa";
+  font-size: 18px;
+  font-weight: 300;
+  line-height: calc(24 / 18);
+}
+
+.about_history__descr a {
+  text-decoration: underline;
+  color: #ec1556;
+}
+
+.about_history__descr p {
+  margin: 0;
+}

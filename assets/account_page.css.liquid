@@ -1,0 +1,346 @@
+.card__linklist-item.active_page_mod {
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+.dashboard_block {
+	padding-left: 44px;
+	padding-right: 44px;
+}
+
+@media (min-width: 1367px) {
+	.dashboard_block__in {
+		display: flex;
+		justify-content: flex-start;
+		align-content: stretch;
+		align-items: stretch;
+		flex-flow: row nowrap;
+
+		margin: 0 -80px -44px 0;
+		padding: 0;
+	}
+
+	.dashboard_block__col {
+		padding: 0 80px 40px 0;
+	}
+
+	.dashboard_block__col:not(:nth-child(3n)) {
+		position: relative;
+	}
+
+	.dashboard_block__col:not(:nth-child(3n)):before {
+		position: absolute;
+		top: 0;
+		right: 40px;
+
+		content: '';
+
+		width: 1px;
+		height: calc(100% - 40px);
+
+		background-color: #e7e2de;
+	}
+}
+
+@media (min-width: 1367px){
+	.dashboard_block:not(.dashboard_block--details_mod) .dashboard_block__col {
+		max-width: 420px;
+		width: 100%;
+		flex-grow: 0;
+		flex-basis: auto;
+	}
+
+	.dashboard_block.dashboard_block--details_mod .dashboard_block__col {
+		width: 33.33%;
+	}
+}
+
+@media (max-width: 1366px) {
+	.dashboard_block__in {
+		width: 100%;
+	}
+
+	.dashboard_block__col {
+		width: 100%;
+	}
+
+	.dashboard_block__col:not(:last-child) {
+		margin-bottom: 40px;
+		padding-bottom: 40px;
+
+		border-bottom: 1px solid #e7e2de;
+	}
+}
+
+.dashboard_item {
+	width: 100%;
+}
+
+@media (min-width: 1367px) {
+	.dashboard_item {
+		justify-content: center;
+	}
+}
+
+@media (min-width: 481px) {
+	.dashboard_item {
+		display: flex;
+		align-items: flex-start;
+		align-content: flex-start;
+	}
+
+	.dashboard_block__points:not(:last-child) {
+		margin-right: 12px;
+	}
+
+	.dashboard_block__points_graph {
+		width: 148px;
+		height: 148px;
+	}
+}
+
+@media (max-width: 480px) {
+	.dashboard_block__points:not(:last-child) {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.dashboard_block__points_graph {
+		width: 100%;
+	}
+}
+
+
+.dashboard_block__points_graph:not(:last-child) {
+	margin-bottom: 44px;
+}
+
+.dashboard_block__points_btn {
+	width: 100%;
+
+	text-align: center;
+}
+
+.dashboard_block__info {
+	width: 162px;
+
+	text-align: center;
+}
+
+@media (max-width: 480px) {
+	.dashboard_block__info {
+		margin: 0 auto;
+	}
+}
+
+.dashboard_block__info_title {
+	width: 100%;
+	margin: 0 0 10px;
+
+	color: #8bc53f;
+	font-family: "Europa";
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 1.8px;
+	line-height: calc(22 / 16);
+	text-transform: uppercase;
+}
+
+.dashboard_block__info_value {
+	width: 100%;
+	margin: 0 0 10px;
+
+	color: #235833;
+	font-family: "Europa";
+	font-size: 80px;
+	font-weight: 400;
+	line-height: .8;
+}
+
+.dashboard_block__info_value span {
+	font-size: 45px;
+}
+
+.dashboard_block__info_text {
+	width: 100%;
+	color: #235833;
+	font-family: "Europa";
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 1.8px;
+	line-height: calc(18 / 16);
+	text-transform: uppercase;
+}
+
+.account_information {
+	width: 100%;
+}
+
+.account_information:not(:last-child) {
+	margin-bottom: 30px;
+}
+
+@media (max-width: 480px) {
+	.account_information {
+		text-align: center;
+	}
+}
+
+.account_information__list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+}
+
+.account_information__list_item {
+	width: 100%;
+
+	list-style: none;
+}
+
+.account_information__list_item:not(:last-child) {
+	margin-bottom: 8px;
+}
+
+.account_information__value {
+	width: 100%;
+
+	color: #3a2a2f;
+	font-family: "Europa";
+	font-size: 18px;
+	font-weight: 300;
+	line-height: calc(24 / 18);
+}
+
+.account_edit_btn {
+	color: var(--header-accent-color);
+	font-family: "Europa";
+	font-size: 18px;
+	font-weight: 300;
+	line-height: calc(24 / 18);
+
+	background: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	transition: opacity .3s ease;
+
+	cursor: pointer;
+}
+
+.account_edit_btn:hover,
+.account_edit_btn:focus {
+	opacity: .8;
+}
+
+.account_table {
+	padding: 20px 0 80px;
+}
+
+.account_table .card__section {
+	padding: 0 44px 14px;
+	margin-bottom: 30px;
+
+	border-bottom: 1px solid #e7e2de;
+}
+
+.account_table thead {
+	border-bottom: 1px solid #235833;
+}
+
+.account_table .table-wrapper {
+	padding-left: 44px;
+	padding-right: 44px;
+}
+
+.account_table .table-wrapper thead tr th,
+.account_table .table-wrapper tbody tr td {
+	padding-left: 0;
+}
+
+.account_table .table-wrapper thead tr th:last-child,
+.account_table .table-wrapper tbody tr td:last-child {
+	padding-right: 0;
+}
+
+.account_table thead th {
+	color: #235833;
+	font-family: "Europa";
+	font-weight: 400;
+	font-style: normal;
+	letter-spacing: 1.8px;
+	line-height: 22px;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+	.account_table thead th {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 767px) {
+	.account_table thead th {
+		font-size: calc(var(--base-text-font-size) - (var(--default-text-font-size) - 14px));
+	}
+}
+
+
+.account_table tbody tr {
+	border: 0;
+}
+
+.account_table tbody tr td {
+	padding-left: 0;
+	padding-top: 20px;
+	padding-bottom: 0;
+}
+
+
+.bottom_btn_wrapper {
+	width: 100%;
+	margin-top: 40px;
+	padding: 0 20px;
+	text-align: center;
+}
+
+.account_table tbody tr td {
+	color: #3a2a2f;
+	font-family: "Europa";
+	font-size: 16px;
+	font-weight: 300;
+	font-style: normal;
+	letter-spacing: normal;
+	line-height: 24px;
+	text-align: left;
+}
+
+@media (min-width: 768px) {
+	.account_table tbody tr td {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 767px) {
+	.account_table tbody tr td {
+		font-size: calc(var(--base-text-font-size) - (var(--default-text-font-size) - 14px));
+	}
+}
+
+.account_table .accent_text {
+	font-weight: 400;
+}
+
+.account_table .table-wrapper thead tr th.text_align_right,
+.account_table .table-wrapper tbody tr td.text_align_right {
+	text-align: right;
+}
+
+.account_information__bottom {
+	margin-top: 30px;
+}

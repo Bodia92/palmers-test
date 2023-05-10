@@ -1,0 +1,159 @@
+.post_hero_section {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.post_hero_breadcrumbs {
+  padding: 20px 0;
+}
+
+.post_hero {
+  width: 100%;
+  padding: 66px 20px 28px;
+
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #e7e2de;
+  border-bottom: 0;
+  background-color: #ffffff;
+}
+
+.post_hero__in {
+  width: 100%;
+  max-width: 1128px;
+  margin: 0 auto;
+}
+
+.post_hero__img {
+  width: 100%;
+  height: 352px;
+}
+
+.post_hero__img:not(:last-child) {
+  margin-bottom: 48px;
+}
+
+.post_hero__img_in {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.post_hero__bottom {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  align-content: flex-end;
+
+  width: 100%;
+}
+
+.post_hero__title {
+  margin: 0;
+
+  color: #3a2a2f;
+  font-size: 38px;
+  font-family: "Europa";
+  font-weight: 400;
+  line-height: calc(44 / 38);
+}
+
+
+@media (min-width: 1200px) {
+  .post_hero__title {
+    width: calc(100% - 300px);
+    padding-right: 20px;
+  }
+  .post_hero__share {
+    display: flex;
+    justify-content: flex-end;
+    width: 300px;
+    margin-left: auto;
+    flex: none;
+  }
+}
+
+
+@media (max-width: 1199px) {
+  .post_hero__title {
+    width: 100%;
+  }
+  .post_hero__share {
+    width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.featured_articles__title {
+  width: 100%;
+
+  color: #235833;
+  font-family: "Europa";
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+}
+
+.share_list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  margin: 0 -8px -8px 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.share_list__item {
+  padding: 0 8px 8px 0;
+
+  list-style: none;
+}
+
+.share_link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 10px;
+
+  text-decoration: none;
+  color: #fff;
+
+  border-radius: 50%;
+  background-color: #ec1556;
+
+  transition: opacity .3s ease;
+}
+
+.share_link:hover,
+.share_link:focus {
+  opacity: .8;
+}
+
+.share_link__icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  color: currentColor;
+}
+.share_link__icon i,
+.share_link__icon_img {
+  max-width: 100%;
+  max-height: 100%;
+}

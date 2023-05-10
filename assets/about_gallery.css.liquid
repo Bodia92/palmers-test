@@ -1,0 +1,70 @@
+.about_gallery {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 74px;
+  margin: 0;
+}
+
+.about_gallery__in {
+  position: relative;
+
+  width: 100%;
+}
+
+.about_gallery__list_in {
+  width: 100%;
+}
+
+.about_gallery__item {
+  position: relative;
+
+  width: 100%;
+
+  padding-top: calc(258 / 332 * 100%);
+}
+
+.about_gallery__slider_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.about_gallery__controller {
+  color: #ffffff;
+}
+
+.about_gallery__controller::before {
+  z-index: 1;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  content: '';
+
+  width: 40px;
+  height: 48px;
+  margin: -24px 0 0 -20px;
+
+  background-color: #ec1556;
+}
+
+.about_gallery__controller::after {
+  z-index: 2;
+}
+
+
+@media (min-width: 1367px){
+  .swiper-button-next {
+    right: -10px;
+  }
+  .swiper-button-prev {
+    left: -10px;
+  }
+}

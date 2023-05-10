@@ -1,0 +1,239 @@
+.articles {
+  width: 100%;
+}
+
+.articles__list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  margin: 0 -24px -20px 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.articles__list_item {
+  padding: 0 24px 20px 0;
+}
+
+
+@media (min-width: 1367px) {
+  .articles__list_item {
+    width: 33.33%;
+  }
+  .blog_section__content_line.two_col .articles__list_item {
+    width: 50%;
+  }
+  .featured_articles .articles__list_item {
+    width: 25%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1366px) {
+  .articles__list_item {
+    width: 50%;
+  }
+}
+
+@media (max-width: 639px) {
+  .articles__list_item {
+    width: 100%;
+  }
+}
+
+.article_item {
+  position: relative;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 226px;
+
+  border-radius: 3px;
+
+  overflow: hidden;
+}
+
+.article_item.article_item--resource_mod {
+  background-color: #ffffff;
+}
+
+.article_item:not(.article_item--resource_mod) .article_item__image {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.article_item:not(.article_item--resource_mod) .article_item__image:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  content: '';
+  width: 100%;
+  height: 100%;
+
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) -60%, #000000 100%);
+  opacity: 0.8;
+}
+
+.article_item.article_item--resource_mod .article_item__image {
+  width: 100%;
+  height: 168px;
+}
+
+.article_item__image_in {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+.article_item:not(.article_item--resource_mod) .article_item__content {
+  z-index: 2;
+
+  position: relative;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  width: 100%;
+  height: 100%;
+  padding: 24px 22px;
+
+  text-decoration: none;
+}
+
+.article_item.article_item--resource_mod .article_item__content {
+  width: 100%;
+  padding: 20px 24px;
+}
+
+.article_item__tags {
+  width: 100%;
+
+  color: #8bc53f;
+  font-family: "Europa";
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  line-height: calc(22 / 16);
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  .article_item__tags {
+    font-size: 16px;
+  }
+}
+@media (max-width: 1023px) {
+  .article_item__tags {
+    font-size: 14px;
+  }
+}
+
+.article_item__title {
+  width: 100%;
+
+  color: #ffffff;
+  font-family: "Europa";
+  font-size: 38px;
+  font-weight: 400;
+}
+
+.article_item:not(.article_item--resource_mod) .article_item__title {
+  color: #ffffff;
+}
+
+
+@media (min-width: 1024px) {
+  .article_item:not(.article_item--resource_mod) .article_item__title {
+    font-size: 38px;
+    line-height: calc(40 / 38);
+  }
+}
+
+
+.article_item.article_item--resource_mod .article_item__title {
+  margin-bottom: 20px;
+
+  color: #3a2a2f;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+
+}
+
+@media (min-width: 1024px) {
+  .article_item.article_item--resource_mod .article_item__title {
+    font-size: 26px;
+    line-height: calc(28 / 26);
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .article_item__title {
+    font-size: 26px;
+    line-height: calc(28 / 26);
+  }
+}
+
+
+.article_item.article_item--resource_mod .article_item__title:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.article_item__bottom {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+.article_item__bottom_col {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+
+  color: #ec1556;
+}
+
+.article_item__bottom_col:last-child {
+  margin-left: auto;
+}
+
+
+.article_item__bottom_link {
+  text-decoration: underline;
+  color: currentColor;
+  font-family: "Europa";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: calc(25 / 15);
+}
+
+.article_item__bottom_icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+}
+
+.article_item__bottom_icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

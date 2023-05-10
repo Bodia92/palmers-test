@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+  {% include 'analyzify-gtm-checkout' %}
+</head>
+  <body>
+    
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+	{% if checkout.attributes['Checkout-Method'] == 'pickup' %}
+    <script type="text/javascript">
+      $(document).on("page:load page:change", function() {
+        console.log("Pickup");
+        //document.querySelector('.section--shipping-address #section-delivery-title').innerHTML = 'Pickup address';
+        //document.querySelector('.step__footer [data-continue-button-content]').innerHTML = 'Continue';
+        //document.querySelectorAll('.breadcrumb.breadcrumb--center li')[2].querySelector('.breadcrumb__text').innerHTML = 'Store Pickup';
+        document.querySelector('.section--shipping-address [data-address-field="address1"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="address2"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="city"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="province"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="company"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="country"]').style.display = 'none';
+        document.querySelector('.section--shipping-address [data-address-field="zip"]').style.display = 'none';
+      });
+      </script>
+    {% else %}
+    <script type="text/javascript">
+      $(document).on("page:load page:change", function() {
+        console.log("Delivery");
+        //document.getElementById('checkout_shipping_address_province').setAttribute("readonly", true)
+        if (document.getElementById('checkout_shipping_address_zip').value == '') {
+          if (localStorage["selectedStore"]) {
+            var store_data = JSON.parse(localStorage["selectedStore"]);
+            document.getElementById('checkout_shipping_address_zip').value = store_data['user_postcode'];
+            document.getElementById('checkout_shipping_address_zip').setAttribute("readonly", true);
+            document.getElementById('checkout_shipping_address_zip').setAttribute("autocomplete", "false");
+            document.getElementById('checkout_shipping_address_zip').setAttribute("role", "presentation");
+          }
+        } else {
+          document.getElementById('checkout_shipping_address_zip').setAttribute("readonly", true);
+          document.getElementById('checkout_shipping_address_zip').setAttribute("autocomplete", "off");
+        }
+      });
+    </script>
+    {% endif %}
+    {{ tracking_code }}
+  </body>
+</html>
+<script type="text/javascript">
+
+var States = [
+  { name: 'Auckland', abbreviation: 'AUK'},
+  { name: 'Bay of Plenty', abbreviation: 'BOP'},
+  { name: 'Canterbury', abbreviation: 'CAN'},
+  { name: 'Gisborne', abbreviation: 'GIS'},
+  { name: "Hawke's Bay", abbreviation: 'HKB'},
+  { name: 'Marlborough', abbreviation: 'MBH'},
+  { name: 'Manawatu-Wanganui', abbreviation: 'MWT'},
+  { name: 'Nelson', abbreviation: 'NSN'},
+  { name: 'Northland', abbreviation: 'NTL'},
+  { name: 'Otago', abbreviation: 'OTA'},
+  { name: 'Southland', abbreviation: 'STL'},
+  { name: 'Tasman', abbreviation: 'TAS'},
+  { name: 'Taranaki', abbreviation: 'TKI'},
+  { name: 'Waikato', abbreviation: 'WKO'},
+  { name: 'Wellington', abbreviation: 'WGN'},
+  { name: 'West Coast', abbreviation: 'WTC'}
+];
+
+$.getJSON( "/cart.js").done(function( response ) {
+  var attributes = response.attributes;
+  if(attributes['Checkout-Method'] == 'pickup') {
+    
+    var pickupCompany = attributes['Pickup-Location-Company'];
+    var pickupAddress1 = attributes['Pickup-Location-Address-Line-1'];
+    var pickupAddress2 = attributes['Pickup-Location-Address-Line-2'];
+    var pickupCity = attributes['Pickup-Location-City'];
+    var pickupState = attributes['Pickup-Location-Region'].toUpperCase();
+    var pickupZip = attributes['Pickup-Location-Postal-Code'];
+      
+    if(pickupState.length > 2) {
+      pickupState = States.find(x => x.name.toUpperCase() === pickupState).abbreviation;
+    }
+    $('#checkout_shipping_address_company').val(pickupCompany);
+    $('#checkout_shipping_address_address1').val(pickupAddress1);
+    $('#checkout_shipping_address_address2').val(pickupAddress2);
+    $('#checkout_shipping_address_city').val(pickupCity);
+    $('#checkout_shipping_address_province').val(pickupState);
+    $('#checkout_shipping_address_zip').val(pickupZip);
+
+  }
+}).fail(function( jqxhr, textStatus, error ) {
+  var err = textStatus + ", " + error;
+  console.log( "Request Failed: " + err );
+});
+</script>

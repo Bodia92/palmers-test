@@ -1,0 +1,320 @@
+.login_popup {
+	z-index: -1;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	opacity: 0;
+	pointer-events: none;
+
+	transition: opacity .3s ease;
+	will-change: opacity;
+
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+@media (max-height: 800px) {
+	.login_popup {
+		display: block;
+	}
+}
+
+
+body.body--popup_open_state {
+	overflow: hidden;
+}
+
+body.body--popup_open_state .login_popup {
+	z-index: 200;
+
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.login_popup__in {
+	position: relative;
+
+	width: 100%;
+	max-width: 688px;
+	margin: 0 auto;
+
+	background-color: #68a3db;
+}
+
+.login_popup__in::before {
+	z-index: 1;
+
+	position: absolute;
+	left: 0;
+	bottom: 60px;
+
+	content: '';
+
+	width: 100%;
+	height: 334px;
+
+	pointer-events: none;
+
+	background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+	background-image: url({{ 'popup_decor.svg' | asset_url }});
+}
+
+
+@media (min-width: 768px) {
+	.login_popup__in {
+		padding: 30px 30px 44px;
+	}
+}
+
+
+@media (max-width: 767px) {
+	.login_popup__in {
+		padding: 30px 20px;
+	}
+}
+
+.login_popup__top {
+	z-index: 2;
+
+	position: relative;
+
+	width: 100%;
+	max-width: 528px;
+	margin: 0 auto;
+}
+
+.login_popup__top:not(:last-child) {
+	margin-bottom: 24px;
+	padding-bottom: 33px;
+
+	border-bottom: 1px solid rgba(236, 233, 233, 0.5);
+}
+
+.login_popup__img {
+	margin: 0 auto 20px;
+}
+
+
+@media (min-width: 768px) {
+	.login_popup__img {
+		width: 244px;
+		height: 178px;
+	}
+}
+
+@media (max-width: 767px) {
+	.login_popup__img {
+		width: 170px;
+		height: auto;
+	}
+}
+
+
+.login_popup__img.login_popup__img--size_mod {
+	width: 177px;
+	height: 127px;
+}
+
+.login_popup__img_in {
+	display: block;
+	width: 100%;
+	height: 100%;
+
+	object-fit: contain;
+}
+
+.login_popup__title {
+	width: 100%;
+
+	font-family: 'Europa';
+	color: #ffffff;
+	font-weight: 700;
+	line-height: calc(32 / 22);
+	text-align: center;
+}
+
+
+@media (min-width: 481px) {
+	.login_popup__title {
+		font-size: 22px;
+	}
+}
+@media (max-width: 480px) {
+	.login_popup__title {
+		font-size: 16px;
+	}
+}
+
+
+
+.login_popup__btn_w {
+	width: 100%;
+
+	text-align: center;
+}
+
+.login_popup__btn_w:not(:last-child) {
+	margin-bottom: 22px;
+}
+
+.login_popup__btn_w.login_popup__btn_w--offset_mod:not(:last-child) {
+	margin-bottom: 44px;
+}
+
+
+.login_popup__btn {
+	display: inline-flex;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+
+	font-family: 'Europa';
+	color: #235833;
+	font-weight: 700;
+	letter-spacing: -0.2px;
+	text-align: center;
+
+	border-radius: 4px;
+	background-color: #ffffff;
+
+	transition: opacity .3s ease;
+}
+
+.login_popup__btn:hover,
+.login_popup__btn.focus {
+	opacity: .8;
+}
+
+.login_popup__btn.login_popup__btn--accent_mod {
+	color: #ffffff;
+
+	background-color: #235833;
+}
+
+
+@media (min-width: 481px) {
+	.login_popup__btn {
+		height: 48px;
+		padding: 0 16px;
+
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.login_popup__btn {
+		width: 100%;
+		min-height: 48px;
+		padding: 10px 16px;
+
+		font-size: 14px;
+	}
+}
+
+
+
+.login_popup__descr {
+	width: 100%;
+	max-width: 338px;
+	margin: 0 auto;
+
+	font-family: 'Europa';
+	color: #ffffff;
+	font-weight: 400;
+	line-height: 22px;
+	text-align: center;
+}
+
+@media (min-width: 481px) {
+	.login_popup__descr {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.login_popup__descr {
+		font-size: 14px;
+	}
+}
+
+.login_popup__subtitle {
+	width: 100%;
+
+	font-family: 'Europa';
+	color: #ffffff;
+	font-weight: 400;
+	line-height: calc(32 / 18);
+	text-align: center;
+}
+
+@media (min-width: 481px) {
+	.login_popup__subtitle {
+		font-size: 18px;
+	}
+}
+
+@media (max-width: 480px) {
+	.login_popup__subtitle {
+		font-size: 14px;
+	}
+}
+
+.login_popup__bottom {
+	z-index: 2;
+
+	position: relative;
+
+	width: 100%;
+}
+
+.login_popup__close {
+	z-index: 20;
+	
+	position: absolute;
+
+	width: 20px;
+	height: 20px;
+
+	color: #235833;
+
+	cursor: pointer;
+
+	transition: opacity .3s ease;
+	will-change: opacity;
+}
+
+.login_popup__close:hover,
+.login_popup__close:active {
+	opacity: .8;
+}
+
+
+@media (min-width: 768px) {
+	.login_popup__close {
+		top: 30px;
+		right: 30px;
+	}
+}
+
+@media (max-width: 767px) {
+	.login_popup__close {
+		top: 15px;
+		right: 15px;
+	}
+}
